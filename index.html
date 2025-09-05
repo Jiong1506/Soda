@@ -496,91 +496,79 @@
 
         /* Responsive - Umum untuk Layar Kecil (Tablet & Mobile) */
         @media (max-width: 768px) {
-            .container { padding: 0 0.8rem; } /* Sedikit kurangi padding di container */
+            .container { padding: 0 0.8rem; }
             
-            /* Header & Navigasi */
+            /* HEADER & NAVIGASI */
             .header-content {
                 flex-direction: column;
                 align-items: center;
                 gap: 0.5rem;
                 padding: 1rem 0;
             }
-            .logo {
-                font-size: 1.6rem;
-                margin-bottom: 0.5rem;
-            }
-            .logo .icon {
-                font-size: 1.8rem;
-            }
+            .logo { font-size: 1.6rem; margin-bottom: 0.5rem; }
             nav { width: 100%; order: 1; margin-bottom: 0.5rem; }
             nav ul {
                 justify-content: space-around;
                 width: 100%;
-                flex-wrap: nowrap; /* Pastikan nav item tidak wrap ke bawah */
-                padding: 0 0.5rem; /* Tambah padding agar tidak terlalu mepet tepi */
+                flex-wrap: nowrap;
+                padding: 0 0.5rem;
             }
-            nav ul li { margin: 0 0.4rem; } /* Kurangi margin antar item nav */
-            nav ul li a { font-size: 0.9rem; padding: 0.5rem 0; }
+            nav ul li { margin: 0 0.4rem; }
+            nav ul li a { 
+                font-size: clamp(0.75rem, 3vw, 0.9rem); /* Menyesuaikan ukuran font nav */
+                padding: 0.5rem 0; 
+            }
             #mode-toggle { 
                 order: 2;
                 position: absolute;
                 top: 1.25rem;
-                right: 0.8rem; /* Sesuaikan posisi agar tidak terlalu mepet */
+                right: 0.8rem;
                 font-size: 1.3rem;
                 width: 36px;
                 height: 36px;
             }
 
-            /* Hero Section */
+            /* HERO SECTION */
             .hero-section {
                 padding: 3rem 1rem;
                 margin-bottom: 1.5rem;
             }
-            .hero-section h1 {
-                font-size: clamp(1.8rem, 8vw, 2.5rem);
-                margin-bottom: 0.75rem;
-            }
-            .hero-section p {
-                font-size: clamp(0.85rem, 3vw, 1rem);
-                margin: 0.75rem auto 1.5rem;
-            }
-            .hero-section .btn {
-                font-size: 0.95rem;
-                padding: 12px 20px;
-            }
+            .hero-section h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+            .hero-section p { font-size: clamp(0.85rem, 3vw, 1rem); }
+            .hero-section .btn { font-size: clamp(0.9rem, 3vw, 1rem); }
 
-            /* General Content & Buttons */
-            .main-content { padding: 1.5rem 0 3rem; }
+            /* MATERI & KARTU */
             .materials-header { flex-direction: column; align-items: flex-start; }
             #search-input { max-width: 100%; margin-top: 0.5rem; }
-            .form-actions { flex-direction: column; gap: 0.75rem; }
-            .btn { width: 100%; padding: 12px 15px; } /* Tombol memenuhi lebar di mobile */
-
-            /* Material Card */
+            .materials-grid { grid-template-columns: 1fr; gap: 1.5rem; } /* Satu kolom di layar kecil */
             .material-card {
                 margin: 0 auto;
-                max-width: 320px; /* Batasi lebar kartu agar tidak terlalu lebar di tablet */
+                max-width: none;
+                width: 100%;
+                flex-direction: column; /* Tata letak vertikal untuk mobile */
             }
-            .materials-grid {
-                grid-template-columns: 1fr; /* Satu kolom untuk semua materi */
-                gap: 1.5rem;
+            .material-info { padding: 1rem; }
+            .material-title { 
+                font-size: clamp(1rem, 4vw, 1.3rem); /* Ukuran font judul yang responsif */
+                white-space: nowrap; /* Mencegah judul pindah baris */
+                overflow: hidden; /* Sembunyikan jika terlalu panjang */
+                text-overflow: ellipsis; /* Tampilkan ... jika terpotong */
             }
-            .material-info { padding: 1rem; } /* Kurangi padding di info card */
             .material-actions {
-                flex-direction: row; /* Atur ulang tombol agar sejajar */
-                justify-content: center; /* Pusatkan tombol */
+                flex-direction: column; /* Tombol aksi vertikal di layar kecil */
+                gap: 0.5rem;
                 margin-top: 1rem;
             }
             .material-actions .btn {
-                width: auto; /* Tombol tidak lagi 100% lebar di dalam card action */
-                flex-grow: 1; /* Biarkan tombol tumbuh mengisi ruang */
-                padding: 8px 15px; /* Kurangi padding tombol aksi */
-                font-size: 0.9rem;
+                width: 100%;
+                padding: 10px 15px;
+                font-size: clamp(0.8rem, 3vw, 1rem);
             }
-
-
-            /* Form & Editor */
+            
+            /* FORMULIR & EDITOR */
             #material-form { padding: 1.5rem; }
+            .form-actions { flex-direction: column; gap: 0.75rem; }
+            .btn { width: 100%; }
             .editor-toolbar button {
                 width: 32px;
                 height: 32px;
@@ -589,66 +577,40 @@
             .content-editable {
                 min-height: 200px;
                 padding: 12px;
+                font-size: clamp(0.9rem, 3vw, 1.1rem); /* Ukuran font konten yang responsif */
             }
 
-            /* View Material */
+            /* VIEW MATERI */
             .material-viewer { padding: 1.5rem; }
-            .material-viewer h2 { font-size: var(--font-size-h2); }
-            .material-viewer img {
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-            }
+            .material-viewer h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
             .material-viewer #material-content-viewer {
-                font-size: 0.95rem; /* Kurangi font size untuk konten */
+                font-size: clamp(0.9rem, 3vw, 1rem);
             }
 
-            /* Footer */
-            footer {
-                padding: 1.25rem;
-                font-size: 0.8rem;
-            }
+            /* FOOTER */
+            footer { padding: 1.25rem; font-size: clamp(0.7rem, 2.5vw, 0.8rem); }
         }
 
-        /* Responsive - Khusus untuk Layar Handphone Portrait (<= 480px) */
+        /* Penyesuaian Tambahan untuk Layar Sangat Kecil (di bawah 480px) */
         @media (max-width: 480px) {
-            .container { padding: 0 0.5rem; } /* Padding yang lebih kecil untuk handphone */
-
+            .container { padding: 0 0.5rem; }
             .logo { font-size: 1.4rem; }
             .logo .icon { font-size: 1.6rem; }
-            nav ul li a { font-size: 0.8rem; padding: 0.4rem 0; }
-            #mode-toggle { top: 0.8rem; right: 0.5rem; font-size: 1.1rem; width: 30px; height: 30px; } /* Sesuaikan ukuran dan posisi toggle */
-
+            #mode-toggle { top: 0.8rem; right: 0.5rem; }
             .hero-section { padding: 2.5rem 0.8rem; }
-            .hero-section h1 { font-size: clamp(1.5rem, 7vw, 2rem); }
-            .hero-section p { font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
-            .hero-section .btn { font-size: 0.9rem; padding: 10px 18px; }
-
-            .card { padding: 1.2rem; } /* Kurangi padding card */
-            #material-form { padding: 1rem; } /* Kurangi padding form */
-            
-            .material-card {
-                max-width: none; /* Izinkan kartu mengisi lebar penuh (dengan padding container) */
-                width: 100%;
-            }
-
+            .card { padding: 1.2rem; }
             .material-actions {
-                flex-direction: column; /* Tombol aksi kembali ke kolom di layar sangat kecil */
+                flex-direction: column;
                 gap: 0.5rem;
             }
             .material-actions .btn {
-                width: 100%; /* Tombol aksi mengisi lebar penuh lagi */
-                padding: 10px 15px;
-                font-size: 0.95rem;
+                width: 100%;
             }
-
-            .material-viewer { padding: 1rem; } /* Kurangi padding viewer */
-            .material-viewer h2 { font-size: 1.5rem; }
-            .material-viewer .material-date { margin-bottom: 1rem; }
-            .material-viewer #material-content-viewer {
-                font-size: 0.9rem; /* Lebih kecil lagi untuk konten */
+            .editor-toolbar button {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
             }
-
-            footer { font-size: 0.7rem; padding: 0.8rem; }
         }
     </style>
 </head>
