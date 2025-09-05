@@ -45,6 +45,7 @@
             background: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
         }
         
         /* Dark Mode Styles */
@@ -238,6 +239,10 @@
         }
         
         /* Pastikan semua elemen tidak melampaui lebar layar */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         img, video, iframe, embed, object {
             max-width: 100%;
             height: auto;
@@ -267,7 +272,7 @@
         h1 { font-size: var(--font-size-h1); }
         h2 { font-size: var(--font-size-h2); }
         h3 { font-size: var(--font-size-h3); }
-        p { font-size: var(--font-size-body); }
+        p { font-size: var(--font-size-body); word-break: break-word; }
         small { font-size: var(--font-size-small); }
 
         /* Header & Navigasi */
@@ -326,7 +331,8 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
-            word-wrap: break-word; /* Memastikan teks tombol tidak terpotong */
+            word-break: break-word; 
+            flex-wrap: wrap;
         }
         .btn i { margin-right: 8px; }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
@@ -356,8 +362,7 @@
             box-shadow: var(--shadow);
         }
         .hero-section h1 { font-size: var(--font-size-h1); }
-        .hero-section p { font-size: var(--font-size-body); max-width: 600px; margin: 1rem auto; }
-
+        .hero-section p { font-size: var(--font-size-body); max-width: 600px; margin: 1rem auto; word-break: break-word; }
 
         /* Materials Page */
         .materials-header {
@@ -406,18 +411,28 @@
             background: #e9ecef;
             transition: background 0.3s ease;
         }
-        .material-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .material-thumbnail img { max-width: 100%; height: auto; object-fit: cover; }
         .material-thumbnail i { color: var(--secondary-color); opacity: 0.6; font-size: 3rem; }
         .material-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .material-title { font-size: var(--font-size-h3); font-weight: 600; margin: 0 0 0.5rem; }
+        .material-title { font-size: var(--font-size-h3); font-weight: 600; margin: 0 0 0.5rem; word-break: break-word; }
         .material-date { font-size: var(--font-size-small); color: var(--secondary-color); }
-        .material-actions { display: flex; gap: 10px; margin-top: 1.25rem; }
+        .material-actions { display: flex; gap: 10px; margin-top: 1.25rem; flex-wrap: wrap; }
 
         /* Form & Editor */
         #material-form { max-width: 700px; margin: auto; padding: 2.5rem; }
         .form-group { margin-bottom: 1.5rem; }
         label { display: block; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-color); }
-        .form-control { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; font-size: var(--font-size-body); }
+        .form-control { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            background: var(--card-bg); 
+            color: var(--text-color); 
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
+            font-size: var(--font-size-body);
+            word-break: break-word;
+        }
         .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.1); }
 
         .editor-toolbar { background-color: #f1f3f5; border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; display: flex; gap: 5px; padding: 8px; flex-wrap: wrap; }
@@ -435,7 +450,7 @@
             line-height: 1.6; 
             font-size: var(--font-size-body); 
             transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; 
-            word-wrap: break-word;
+            word-break: break-word;
         }
         [contenteditable="true"]:empty:before { content: attr(placeholder); color: var(--text-color); opacity: 0.7; pointer-events: none; display: block; transition: color 0.3s ease; }
         .content-editable ul { list-style: none; padding-left: 1.5em; }
@@ -455,12 +470,12 @@
 
         /* View Material Page */
         .material-viewer { padding: 2.5rem; }
-        .material-viewer h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+        .material-viewer h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; word-break: break-word; }
         .material-viewer .material-date { font-size: var(--font-size-small); color: var(--secondary-color); margin-bottom: 2rem; display: block; }
         .material-viewer img { max-width: 100%; height: auto; border-radius: 12px; margin-top: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border-color); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease; }
         .material-viewer img:hover { transform: scale(1.02); }
-        .material-viewer p { font-size: var(--font-size-body); line-height: 1.6; word-wrap: break-word; }
-        .material-viewer .content-editable { font-size: var(--font-size-body); }
+        .material-viewer p { font-size: var(--font-size-body); line-height: 1.6; word-break: break-word; }
+        .material-viewer .content-editable { font-size: var(--font-size-body); word-break: break-word; }
         .back-link { margin-top: 2rem; text-align: center; }
 
         /* Modal / Pop-up Gambar (untuk View Page) */
@@ -522,7 +537,7 @@
                 padding: 0 0.5rem;
             }
 
-            /* Header: Navigasi dan logo disesuaikan */
+            /* Header: Navigasi ditumpuk vertikal & diatur ulang */
             .header-content {
                 flex-direction: column;
                 align-items: center;
@@ -536,16 +551,17 @@
             }
             nav {
                 width: 100%;
-                order: 1;
+                order: 1; /* Pindah posisi navigasi di bawah logo */
             }
             nav ul {
-                justify-content: space-around;
+                flex-direction: column; /* Ditumpuk vertikal */
+                justify-content: center;
+                align-items: center;
                 width: 100%;
-                flex-wrap: nowrap;
                 padding: 0;
             }
             nav ul li {
-                margin: 0 0.25rem;
+                margin: 0.5rem 0; /* Jarak vertikal antar menu */
             }
             nav ul li a {
                 font-size: clamp(0.7rem, 2.5vw, 0.9rem);
@@ -561,24 +577,21 @@
                 height: 36px;
             }
             
-            /* Hero Section: Padding vertikal dikurangi */
-            .hero-section {
-                padding: 2.5rem 0.8rem;
-                margin-bottom: 1.5rem;
+            /* Konten Utama & Tombol: Memenuhi lebar layar */
+            .main-content, .card {
+                padding: 1rem;
             }
-            .hero-section h1 {
-                font-size: clamp(1.5rem, 6vw, 2rem);
+            .btn {
+                width: 100%;
+                padding: 10px 15px;
+                font-size: clamp(0.9rem, 4vw, 1rem);
             }
-            .hero-section p {
-                font-size: clamp(0.8rem, 3vw, 0.9rem);
-                margin: 0.5rem auto;
+            .form-actions {
+                flex-direction: column;
+                gap: 0.75rem;
             }
-            .hero-section .btn {
-                font-size: clamp(0.85rem, 3.5vw, 1rem);
-                padding: 8px 16px;
-            }
-
-            /* Materials Page: Tata letak kartu diatur ulang menjadi satu kolom */
+            
+            /* Materials Page: Tata letak kartu jadi satu kolom */
             .materials-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -596,15 +609,13 @@
             }
             .material-card {
                 flex-direction: column;
+                max-width: 100%;
             }
             .material-info {
                 padding: 0.8rem;
             }
             .material-title {
                 font-size: clamp(1rem, 4vw, 1.2rem);
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
             .material-actions {
                 flex-direction: column;
@@ -617,44 +628,22 @@
                 font-size: 0.9rem;
             }
 
-            /* Form & Editor: Padding dan ukuran font diatur ulang */
+            /* Formulir & Editor: Penyesuaian padding dan ukuran */
             #material-form {
                 padding: 1rem;
             }
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            label {
-                margin-bottom: 0.5rem;
-                font-size: 0.9rem;
-            }
-            .form-control {
+            .form-control, .content-editable {
                 padding: 10px;
                 font-size: 0.9rem;
             }
             .editor-toolbar {
                 padding: 5px;
-                flex-wrap: wrap; /* Pastikan toolbar tidak keluar frame */
+                flex-wrap: wrap; 
             }
             .editor-toolbar button {
                 width: 30px;
                 height: 30px;
                 font-size: 0.9rem;
-            }
-            .content-editable {
-                min-height: 150px;
-                padding: 10px;
-                font-size: 0.9rem;
-                word-wrap: break-word;
-            }
-            .form-actions {
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 1.5rem;
-            }
-            .form-actions .btn {
-                width: 100%;
-                padding: 10px 15px;
             }
 
             /* View Material: Disesuaikan untuk keterbacaan di layar kecil */
@@ -663,37 +652,21 @@
             }
             .material-viewer h2 {
                 font-size: clamp(1.5rem, 5vw, 2rem);
-                word-wrap: break-word;
             }
             .material-viewer .material-date {
                 font-size: 0.8rem;
-                margin-bottom: 1rem;
             }
             .material-viewer #material-content-viewer {
                 font-size: 0.9rem;
-                word-wrap: break-word;
-            }
-            .material-viewer img {
-                margin-top: 1rem;
-            }
-            .back-link {
-                margin-top: 1.5rem;
-            }
-            .back-link .btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-
-            /* Footer: Ukuran font diperkecil */
-            footer {
-                padding: 1rem;
-                font-size: 0.75rem;
             }
         }
 
         /* Media query untuk layar desktop yang lebih besar */
         @media (min-width: 481px) {
             .header-content {
+                flex-direction: row;
+            }
+            nav ul {
                 flex-direction: row;
             }
             .material-actions {
