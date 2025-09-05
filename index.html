@@ -19,983 +19,248 @@
             --gradient: linear-gradient(135deg, var(--primary), var(--accent));
             --gradient-secondary: linear-gradient(135deg, var(--secondary), var(--accent));
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f5f7ff;
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: var(--gradient);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 1.5rem;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
-        nav ul li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--gradient);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-danger {
-            background: var(--danger);
-        }
-
-        .btn-edit {
-            background: var(--warning);
-            color: var(--dark);
-        }
-
-        .main-content {
-            padding: 2rem 0;
-            flex: 1;
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .active {
-            display: block;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 3rem 0;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 2rem;
-        }
-
-        .material-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .material-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .material-thumbnail {
-            height: 180px;
-            overflow: hidden;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .material-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.5s ease;
-        }
-
-        .material-card:hover .material-thumbnail img {
-            transform: scale(1.05);
-        }
-
-        .material-info {
-            padding: 1.2rem;
-        }
-
-        .material-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .material-date {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .material-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .editor-container, .viewer-container {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        .textarea-control {
-            min-height: 200px;
-            resize: vertical;
-        }
-
-        .image-preview {
-            max-width: 100%;
-            margin-top: 1rem;
-            border-radius: 10px;
-            overflow: hidden;
-            display: none;
-        }
-
-        .image-preview img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-        }
-
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .toolbar button {
-            padding: 8px 15px;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .toolbar button:hover {
-            background: #e0e0e0;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            max-width: 90%;
-            max-height: 90%;
-            overflow: auto;
-            position: relative;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .modal-img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--gray);
-            background: #f0f0f0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--gray);
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #ddd;
-        }
-
-        .empty-state p {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .confirmation-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .confirmation-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .confirmation-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 1rem;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 0.5rem;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .footer-content p {
-                margin-top: 1rem;
-            }
-            
-            .materials-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .material-actions {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .material-actions .btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color:#f5f7ff; color:var(--dark); line-height:1.6; min-height:100vh; display:flex; flex-direction:column; }
+        .container { width:100%; max-width:1200px; margin:0 auto; padding:0 20px; }
+        header { background:var(--gradient); color:white; padding:1rem 0; box-shadow:0 4px 12px rgba(0,0,0,0.1); position:sticky; top:0; z-index:100; }
+        .header-content { display:flex; justify-content:space-between; align-items:center; }
+        .logo { font-size:1.8rem; font-weight:700; display:flex; align-items:center; }
+        .logo i { margin-right:10px; }
+        nav ul { display:flex; list-style:none; }
+        nav ul li { margin-left:1.5rem; }
+        nav ul li a { color:white; text-decoration:none; font-weight:500; transition:all 0.3s ease; padding:5px 10px; border-radius:20px; }
+        nav ul li a:hover { background:rgba(255,255,255,0.2); }
+        .btn { display:inline-block; padding:10px 20px; background:var(--gradient); color:white; border:none; border-radius:50px; cursor:pointer; font-weight:500; transition:all 0.3s ease; text-decoration:none; box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+        .btn:hover { transform:translateY(-2px); box-shadow:0 6px 12px rgba(0,0,0,0.15);}
+        .btn-outline { background:transparent; border:2px solid var(--primary); color:var(--primary);}
+        .btn-outline:hover { background:var(--primary); color:white;}
+        .btn-danger { background:var(--danger);}
+        .btn-edit { background:var(--warning); color:var(--dark);}
+        .main-content { padding:2rem 0; flex:1; }
+        .page { display:none; animation:fadeIn 0.5s ease; }
+        .active { display:block; }
+        .hero { text-align:center; padding:3rem 0; background:white; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.05); margin-bottom:2rem;}
+        .hero h1 { font-size:2.5rem; margin-bottom:1rem; color:var(--primary);}
+        .hero p { font-size:1.2rem; color:var(--gray); max-width:700px; margin:0 auto 2rem;}
+        .materials-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px; margin-top:2rem;}
+        .material-card { background:white; border-radius:15px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.05); transition:transform 0.3s ease, box-shadow 0.3s ease; cursor:pointer; position:relative;}
+        .material-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+        .material-thumbnail { height:180px; overflow:hidden; background:white; display:flex; align-items:center; justify-content:center;}
+        .material-thumbnail img { width:100%; height:100%; object-fit:contain; transition:transform 0.5s ease;}
+        .material-card:hover .material-thumbnail img { transform:scale(1.05);}
+        .material-info { padding:1.2rem;}
+        .material-title { font-size:1.2rem; margin-bottom:0.5rem; color:var(--dark);}
+        .material-date { color:var(--gray); font-size:0.9rem;}
+        .material-actions { display:flex; justify-content:space-between; margin-top:1rem; padding-top:1rem; border-top:1px solid #eee;}
+        .editor-container, .viewer-container { background:white; border-radius:15px; padding:2rem; box-shadow:0 5px 15px rgba(0,0,0,0.05); margin-bottom:2rem;}
+        .form-group { margin-bottom:1.5rem;}
+        .form-group label { display:block; margin-bottom:0.5rem; font-weight:500;}
+        .form-control { width:100%; padding:12px 15px; border:1px solid #ddd; border-radius:10px; font-size:1rem;}
+        .textarea-control { min-height:200px; resize:vertical;}
+        .image-preview { max-width:100%; margin-top:1rem; border-radius:10px; overflow:hidden; display:none;}
+        .image-preview img { width:100%; max-height:300px; object-fit:contain;}
+        .empty-state { text-align:center; padding:3rem 1rem; color:var(--gray);}
+        .empty-state i { font-size:4rem; margin-bottom:1rem; color:#ddd;}
+        footer { background:var(--dark); color:white; padding:2rem 0; margin-top:3rem;}
+        .footer-content { display:flex; justify-content:space-between; align-items:center;}
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-book"></i> MateriKu
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="nav-link" data-page="home">Beranda</a></li>
-                    <li><a href="#" class="nav-link" data-page="materials">Materi Saya</a></li>
-                    <li><a href="#" class="nav-link" data-page="add-material">Tambah Materi</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header>
+  <div class="container header-content">
+    <div class="logo"><i class="fas fa-book"></i> MateriKu</div>
+    <nav>
+      <ul>
+        <li><a href="#" class="nav-link" data-page="home">Beranda</a></li>
+        <li><a href="#" class="nav-link" data-page="materials">Materi Saya</a></li>
+        <li><a href="#" class="nav-link" data-page="add-material">Tambah Materi</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <main class="container main-content">
-        <!-- Home Page -->
-        <section id="home" class="page active">
-            <div class="hero">
-                <h1>Simpan dan Kelola Materi Pembelajaran Anda</h1>
-                <p>Platform yang memudahkan Anda menyimpan, mengedit, dan membaca materi pembelajaran kapan saja, di mana saja dengan tampilan yang memanjakan mata.</p>
-                <a href="#" class="btn nav-link" data-page="add-material">Tambah Materi Baru</a>
-            </div>
-        </section>
-
-        <!-- Materials List Page -->
-        <section id="materials" class="page">
-            <h2>Materi Saya</h2>
-            <div class="materials-grid" id="materials-list">
-                <!-- Materials will be loaded here dynamically -->
-                <div class="empty-state">
-                    <i class="fas fa-folder-open"></i>
-                    <p>Belum ada materi yang disimpan</p>
-                    <a href="#" class="btn nav-link" data-page="add-material">Buat Materi Pertama</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Add Material Page -->
-        <section id="add-material" class="page">
-            <h2 id="form-title">Tambah Materi Baru</h2>
-            <div class="editor-container">
-                <form id="material-form">
-                    <input type="hidden" id="material-id">
-                    <div class="form-group">
-                        <label for="material-title">Judul Materi</label>
-                        <input type="text" id="material-title" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="material-content">Konten Materi</label>
-                        <div class="toolbar">
-                            <button type="button" data-command="bold"><b>B</b></button>
-                            <button type="button" data-command="italic"><i>I</i></button>
-                            <button type="button" data-command="underline"><u>U</u></button>
-                            <button type="button" data-command="insertUnorderedList">• List</button>
-                            <button type="button" data-command="insertOrderedList">1. List</button>
-                        </div>
-                        <div id="material-content" class="form-control textarea-control" contenteditable="true"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="material-image">Unggah Gambar (opsional)</label>
-                        <input type="file" id="material-image" accept="image/*" class="form-control">
-                        <div class="image-preview" id="image-preview">
-                            <img src="" alt="Preview Gambar">
-                        </div>
-                    </div>
-                    <div class="form-buttons">
-                        <button type="submit" class="btn" id="save-button">Simpan Materi</button>
-                        <a href="#" class="btn btn-outline nav-link" data-page="materials" id="cancel-button" style="display: none;">Batal</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- View Material Page -->
-        <section id="view-material" class="page">
-            <div class="viewer-container" id="material-viewer">
-                <!-- Material content will be loaded here dynamically -->
-            </div>
-            <a href="#" class="btn nav-link" data-page="materials">Kembali ke Daftar Materi</a>
-        </section>
-    </main>
-
-    <!-- Image Modal -->
-    <div class="modal" id="image-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <img class="modal-img" src="" alt="Gambar Materi">
-        </div>
+<main class="container main-content">
+  <!-- Home -->
+  <section id="home" class="page active">
+    <div class="hero">
+      <h1>Simpan dan Kelola Materi Pembelajaran Anda</h1>
+      <p>Platform untuk menyimpan, mengedit, membaca materi pembelajaran kapan saja.</p>
+      <a href="#" class="btn nav-link" data-page="add-material">Tambah Materi Baru</a>
     </div>
+  </section>
 
-    <!-- Confirmation Modal -->
-    <div class="confirmation-modal" id="confirmation-modal">
-        <div class="confirmation-content">
-            <h3>Hapus Materi</h3>
-            <p>Apakah Anda yakin ingin menghapus materi ini? Tindakan ini tidak dapat dibatalkan.</p>
-            <div class="confirmation-buttons">
-                <button class="btn btn-outline" id="cancel-delete">Batal</button>
-                <button class="btn btn-danger" id="confirm-delete">Hapus</button>
-            </div>
+  <!-- List -->
+  <section id="materials" class="page">
+    <h2>Materi Saya</h2>
+    <div class="materials-grid" id="materials-list"></div>
+  </section>
+
+  <!-- Add/Edit -->
+  <section id="add-material" class="page">
+    <h2 id="form-title">Tambah Materi Baru</h2>
+    <div class="editor-container">
+      <form id="material-form">
+        <input type="hidden" id="material-id">
+        <div class="form-group">
+          <label for="material-title">Judul Materi</label>
+          <input type="text" id="material-title" class="form-control" required>
         </div>
+        <div class="form-group">
+          <label for="material-content">Konten Materi</label>
+          <div class="toolbar">
+            <button type="button" data-command="bold"><b>B</b></button>
+            <button type="button" data-command="italic"><i>I</i></button>
+            <button type="button" data-command="underline"><u>U</u></button>
+          </div>
+          <div id="material-content" class="form-control textarea-control" contenteditable="true"></div>
+        </div>
+        <div class="form-group">
+          <label for="material-image">Unggah Gambar</label>
+          <input type="file" id="material-image" accept="image/*" class="form-control">
+          <div class="image-preview" id="image-preview">
+            <img src="" alt="Preview Gambar">
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="btn" id="save-button">Simpan Materi</button>
+          <a href="#" class="btn btn-outline nav-link" data-page="materials" id="cancel-button" style="display:none;">Batal</a>
+        </div>
+      </form>
     </div>
+  </section>
 
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2023 MateriKu. Semua hak dilindungi.</p>
-            <p>Dibuat dengan <i class="fas fa-heart" style="color: var(--secondary);"></i> untuk pendidikan</p>
-        </div>
-    </footer>
+  <!-- View -->
+  <section id="view-material" class="page">
+    <div class="viewer-container" id="material-viewer"></div>
+    <a href="#" class="btn nav-link" data-page="materials">Kembali</a>
+  </section>
+</main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navigation
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pages = document.querySelectorAll('.page');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('data-page');
-                    
-                    // If target page is view-material, we need to handle it differently
-                    if (targetPage === 'view-material') {
-                        // This will be handled by the view material function
-                        return;
-                    }
-                    
-                    // Show the target page and hide others
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                        if (page.id === targetPage) {
-                            page.classList.add('active');
-                        }
-                    });
-                    
-                    // If going to materials page, refresh the list
-                    if (targetPage === 'materials') {
-                        loadMaterials();
-                    }
-                    
-                    // Reset form if going to add material page
-                    if (targetPage === 'add-material') {
-                        resetForm();
-                    }
-                });
-            });
-            
-            // Text editor toolbar
-            const toolbarButtons = document.querySelectorAll('.toolbar button');
-            toolbarButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const command = this.dataset.command;
-                    document.execCommand(command, false, null);
-                    document.getElementById('material-content').focus();
-                });
-            });
-            
-            // Image preview
-            const imageInput = document.getElementById('material-image');
-            const imagePreview = document.getElementById('image-preview');
-            const previewImg = imagePreview.querySelector('img');
-            
-            imageInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewImg.src = e.target.result;
-                        imagePreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    imagePreview.style.display = 'none';
-                }
-            });
-            
-            // Form submission
-            const materialForm = document.getElementById('material-form');
-            materialForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const id = document.getElementById('material-id').value;
-                const title = document.getElementById('material-title').value;
-                const content = document.getElementById('material-content').innerHTML;
-                const imageFile = imageInput.files[0];
-                
-                // If we have an ID, we're editing an existing material
-                if (id) {
-                    if (imageFile) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            updateMaterial(id, title, content, e.target.result);
-                        };
-                        reader.readAsDataURL(imageFile);
-                    } else {
-                        // Keep the existing image if no new image is uploaded
-                        const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                        const existingMaterial = materials.find(m => m.id === id);
-                        updateMaterial(id, title, content, existingMaterial ? existingMaterial.image : null);
-                    }
-                } else {
-                    // Create a unique ID for new material
-                    const materialId = 'material-' + Date.now();
-                    
-                    // Handle image upload for new material
-                    if (imageFile) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            saveMaterial(materialId, title, content, e.target.result);
-                        };
-                        reader.readAsDataURL(imageFile);
-                    } else {
-                        saveMaterial(materialId, title, content, null);
-                    }
-                }
-            });
-            
-            // Save material to storage
-            function saveMaterial(id, title, content, imageData) {
-                const material = {
-                    id: id,
-                    title: title,
-                    content: content,
-                    image: imageData,
-                    date: new Date().toISOString()
-                };
-                
-                // Get existing materials or initialize empty array
-                const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                materials.push(material);
-                
-                // Save back to localStorage
-                localStorage.setItem('materials', JSON.stringify(materials));
-                
-                // Show success message
-                alert('Materi berhasil disimpan!');
-                
-                // Reset form
-                resetForm();
-                
-                // Redirect to materials list
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === 'materials') {
-                        page.classList.add('active');
-                    }
-                });
-                
-                // Refresh materials list
-                loadMaterials();
-            }
-            
-            // Update existing material
-            function updateMaterial(id, title, content, imageData) {
-                const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                const materialIndex = materials.findIndex(m => m.id === id);
-                
-                if (materialIndex !== -1) {
-                    materials[materialIndex].title = title;
-                    materials[materialIndex].content = content;
-                    materials[materialIndex].image = imageData;
-                    materials[materialIndex].date = new Date().toISOString();
-                    
-                    // Save back to localStorage
-                    localStorage.setItem('materials', JSON.stringify(materials));
-                    
-                    // Show success message
-                    alert('Materi berhasil diperbarui!');
-                    
-                    // Reset form
-                    resetForm();
-                    
-                    // Redirect to materials list
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                        if (page.id === 'materials') {
-                            page.classList.add('active');
-                        }
-                    });
-                    
-                    // Refresh materials list
-                    loadMaterials();
-                }
-            }
-            
-            // Delete material
-            function deleteMaterial(id) {
-                const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                const updatedMaterials = materials.filter(m => m.id !== id);
-                
-                // Save back to localStorage
-                localStorage.setItem('materials', JSON.stringify(updatedMaterials));
-                
-                // Show success message
-                alert('Materi berhasil dihapus!');
-                
-                // Refresh materials list
-                loadMaterials();
-            }
-            
-            // Load materials list
-            function loadMaterials() {
-                const materialsGrid = document.getElementById('materials-list');
-                const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                
-                // Clear the grid
-                materialsGrid.innerHTML = '';
-                
-                if (materials.length === 0) {
-                    materialsGrid.innerHTML = `
-                        <div class="empty-state">
-                            <i class="fas fa-folder-open"></i>
-                            <p>Belum ada materi yang disimpan</p>
-                            <a href="#" class="btn nav-link" data-page="add-material">Buat Materi Pertama</a>
-                        </div>
-                    `;
-                    
-                    // Reattach event listeners to the new button
-                    document.querySelector('.nav-link').addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetPage = this.getAttribute('data-page');
-                        
-                        pages.forEach(page => {
-                            page.classList.remove('active');
-                            if (page.id === targetPage) {
-                                page.classList.add('active');
-                            }
-                        });
-                    });
-                    
-                    return;
-                }
-                
-                // Add each material to the grid
-                materials.forEach(material => {
-                    const materialCard = document.createElement('div');
-                    materialCard.className = 'material-card';
-                    materialCard.dataset.id = material.id;
-                    
-                    // Format date
-                    const date = new Date(material.date);
-                    const formattedDate = date.toLocaleDateString('id-ID', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                    
-                    materialCard.innerHTML = `
-                        <div class="material-thumbnail">
-                            ${material.image ? 
-                                `<img src="${material.image}" alt="${material.title}">` : 
-                                `<div style="height:100%; display:flex; align-items:center; justify-content:center; background:#f0f0f0;"><i class="fas fa-file-image" style="font-size: 3rem; color: #ccc;"></i></div>`
-                            }
-                        </div>
-                        <div class="material-info">
-                            <h3 class="material-title">${material.title}</h3>
-                            <p class="material-date">${formattedDate}</p>
-                            <div class="material-actions">
-                                <button class="btn btn-edit edit-material" data-id="${material.id}"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-danger delete-material" data-id="${material.id}"><i class="fas fa-trash"></i> Hapus</button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    materialCard.addEventListener('click', function(e) {
-                        // Don't trigger view when clicking on action buttons
-                        if (!e.target.closest('.material-actions')) {
-                            viewMaterial(material.id);
-                        }
-                    });
-                    
-                    // Add event listeners to edit and delete buttons
-                    const editButton = materialCard.querySelector('.edit-material');
-                    const deleteButton = materialCard.querySelector('.delete-material');
-                    
-                    editButton.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        editMaterial(material.id);
-                    });
-                    
-                    deleteButton.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        showDeleteConfirmation(material.id);
-                    });
-                    
-                    materialsGrid.appendChild(materialCard);
-                });
-            }
-            
-            // View material detail
-            function viewMaterial(id) {
-                const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                const material = materials.find(m => m.id === id);
-                
-                if (!material) {
-                    alert('Materi tidak ditemukan!');
-                    return;
-                }
-                
-                const viewer = document.getElementById('material-viewer');
-                
-                // Format date
-                const date = new Date(material.date);
-                const formattedDate = date.toLocaleDateString('id-ID', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
-                viewer.innerHTML = `
-                    <h2>${material.title}</h2>
-                    <p class="material-date">Dibuat pada: ${formattedDate}</p>
-                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #eee;">
-                    <div class="material-content">${material.content}</div>
-                    ${material.image ? `
-                        <div style="margin-top: 2rem;">
-                            <h3>Gambar Terlampir</h3>
-                            <img src="${material.image}" alt="Gambar Materi" class="material-image" style="max-width: 100%; margin-top: 1rem; cursor: pointer;">
-                        </div>
-                    ` : ''}
-                `;
-                
-                // Add click event to image for zooming
-                const materialImage = viewer.querySelector('.material-image');
-                if (materialImage) {
-                    materialImage.addEventListener('click', function() {
-                        const modal = document.getElementById('image-modal');
-                        const modalImg = modal.querySelector('.modal-img');
-                        modalImg.src = this.src;
-                        modal.style.display = 'flex';
-                    });
-                }
-                
-                // Show the view page
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === 'view-material') {
-                        page.classList.add('active');
-                    }
-                });
-            }
-            
-            // Edit material
-            function editMaterial(id) {
-                const materials = JSON.parse(localStorage.getItem('materials')) || [];
-                const material = materials.find(m => m.id === id);
-                
-                if (!material) {
-                    alert('Materi tidak ditemukan!');
-                    return;
-                }
-                
-                // Fill the form with material data
-                document.getElementById('material-id').value = material.id;
-                document.getElementById('material-title').value = material.title;
-                document.getElementById('material-content').innerHTML = material.content;
-                
-                // Show image preview if exists
-                if (material.image) {
-                    previewImg.src = material.image;
-                    imagePreview.style.display = 'block';
-                } else {
-                    imagePreview.style.display = 'none';
-                }
-                
-                // Change form title and button text
-                document.getElementById('form-title').textContent = 'Edit Materi';
-                document.getElementById('save-button').textContent = 'Perbarui Materi';
-                document.getElementById('cancel-button').style.display = 'inline-block';
-                
-                // Show the add material page
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === 'add-material') {
-                        page.classList.add('active');
-                    }
-                });
-            }
-            
-            // Show delete confirmation
-            function showDeleteConfirmation(id) {
-                const confirmationModal = document.getElementById('confirmation-modal');
-                confirmationModal.style.display = 'flex';
-                
-                document.getElementById('confirm-delete').onclick = function() {
-                    deleteMaterial(id);
-                    confirmationModal.style.display = 'none';
-                };
-                
-                document.getElementById('cancel-delete').onclick = function() {
-                    confirmationModal.style.display = 'none';
-                };
-            }
-            
-            // Reset form
-            function resetForm() {
-                materialForm.reset();
-                document.getElementById('material-id').value = '';
-                document.getElementById('material-content').innerHTML = '';
-                imagePreview.style.display = 'none';
-                document.getElementById('form-title').textContent = 'Tambah Materi Baru';
-                document.getElementById('save-button').textContent = 'Simpan Materi';
-                document.getElementById('cancel-button').style.display = 'none';
-            }
-            
-            // Close modal
-            const modal = document.getElementById('image-modal');
-            const closeModal = document.querySelector('.close-modal');
-            
-            closeModal.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-            
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-            
-            // Cancel button event
-            document.getElementById('cancel-button').addEventListener('click', function(e) {
-                e.preventDefault();
-                resetForm();
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    if (page.id === 'materials') {
-                        page.classList.add('active');
-                    }
-                });
-                loadMaterials();
-            });
-            
-            // Initial load
-            loadMaterials();
-        });
-    </script>
+<footer>
+  <div class="container footer-content">
+    <p>&copy; 2023 MateriKu</p>
+  </div>
+</footer>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://flccihxefysoqfmrnqgt.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const MAX_FILE_SIZE = 10*1024*1024;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.addEventListener('click', e => {
+        e.preventDefault();
+        showPage(l.dataset.page);
+        if (l.dataset.page==='materials') loadMaterials();
+        if (l.dataset.page==='add-material') resetForm();
+      });
+    });
+    document.querySelectorAll('.toolbar button').forEach(btn=>{
+      btn.addEventListener('click',()=>{document.execCommand(btn.dataset.command,false,null);});
+    });
+    document.getElementById('material-form').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const id=document.getElementById('material-id').value;
+      const title=document.getElementById('material-title').value;
+      const content=document.getElementById('material-content').innerHTML;
+      const file=document.getElementById('material-image').files[0];
+      if(file && file.size>MAX_FILE_SIZE) return alert("File > 10MB");
+      if(id){await updateMaterial(id,title,content,file);} else {await saveMaterial(title,content,file);}
+    });
+    loadMaterials();
+  });
+
+  function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+  async function saveMaterial(title,content,file){
+    let imageUrl=null;
+    if(file){
+      const name=Date.now()+"-"+file.name;
+      const {error:err}=await supabase.storage.from('materi').upload(name,file);
+      if(err) return alert("Upload gagal:"+err.message);
+      imageUrl=`${SUPABASE_URL}/storage/v1/object/public/materi/${name}`;
+    }
+    const {error}=await supabase.from('materials').insert([{title,content,image:imageUrl}]);
+    if(error) return alert("Gagal simpan:"+error.message);
+    alert("Materi disimpan!"); resetForm(); showPage('materials'); loadMaterials();
+  }
+
+  async function updateMaterial(id,title,content,file){
+    let data={title,content,updated_at:new Date().toISOString()};
+    if(file){
+      const name=Date.now()+"-"+file.name;
+      const {error:err}=await supabase.storage.from('materi').upload(name,file);
+      if(err) return alert("Upload gagal:"+err.message);
+      data.image=`${SUPABASE_URL}/storage/v1/object/public/materi/${name}`;
+    }
+    const {error}=await supabase.from('materials').update(data).eq('id',id);
+    if(error) return alert("Gagal update:"+error.message);
+    alert("Materi diperbarui!"); resetForm(); showPage('materials'); loadMaterials();
+  }
+
+  async function deleteMaterial(id){
+    const {error}=await supabase.from('materials').delete().eq('id',id);
+    if(error) return alert("Gagal hapus:"+error.message);
+    alert("Materi dihapus!"); loadMaterials();
+  }
+
+  async function loadMaterials(){
+    const grid=document.getElementById('materials-list'); grid.innerHTML="";
+    const {data,error}=await supabase.from('materials').select('*').order('created_at',{ascending:false});
+    if(error) return grid.innerHTML=`<p style="color:red">${error.message}</p>`;
+    if(!data.length) return grid.innerHTML=`<div class="empty-state"><i class="fas fa-folder-open"></i><p>Belum ada materi</p></div>`;
+    data.forEach(m=>{
+      const date=new Date(m.created_at).toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      const card=document.createElement('div'); card.className='material-card';
+      card.innerHTML=`
+        <div class="material-thumbnail">${m.image?`<img src="${m.image}">`:`<div style="height:100%;display:flex;align-items:center;justify-content:center;background:#f0f0f0;"><i class="fas fa-file-image" style="font-size:3rem;color:#ccc;"></i></div>`}</div>
+        <div class="material-info">
+          <h3 class="material-title">${m.title}</h3>
+          <p class="material-date">${date}</p>
+          <div class="material-actions">
+            <button class="btn btn-edit" onclick="editMaterial(${m.id})"><i class="fas fa-edit"></i> Edit</button>
+            <button class="btn btn-danger" onclick="deleteMaterial(${m.id})"><i class="fas fa-trash"></i> Hapus</button>
+          </div>
+        </div>`;
+      card.addEventListener('click',e=>{if(!e.target.closest('.material-actions')) viewMaterial(m);});
+      grid.appendChild(card);
+    });
+  }
+
+  function viewMaterial(m){
+    const viewer=document.getElementById('material-viewer');
+    const date=new Date(m.created_at).toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    viewer.innerHTML=`<h2>${m.title}</h2><p>${date}</p><div>${m.content}</div>${m.image?`<img src="${m.image}" style="max-width:100%;margin-top:1rem">`:''}`;
+    showPage('view-material');
+  }
+
+  async function editMaterial(id){
+    const {data,error}=await supabase.from('materials').select('*').eq('id',id).single();
+    if(error) return alert(error.message);
+    document.getElementById('material-id').value=data.id;
+    document.getElementById('material-title').value=data.title;
+    document.getElementById('material-content').innerHTML=data.content;
+    if(data.image){document.querySelector('#image-preview img').src=data.image; document.getElementById('image-preview').style.display='block';}
+    document.getElementById('form-title').textContent='Edit Materi';
+    document.getElementById('save-button').textContent='Perbarui Materi';
+    document.getElementById('cancel-button').style.display='inline-block';
+    showPage('add-material');
+  }
+
+  function resetForm(){
+    document.getElementById('material-form').reset();
+    document.getElementById('material-id').value='';
+    document.getElementById('material-content').innerHTML='';
+    document.getElementById('image-preview').style.display='none';
+    document.getElementById('form-title').textContent='Tambah Materi Baru';
+    document.getElementById('save-button').textContent='Simpan Materi';
+    document.getElementById('cancel-button').style.display='none';
+  }
+</script>
 </body>
 </html>
