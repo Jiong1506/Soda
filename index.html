@@ -498,120 +498,186 @@
             color: var(--dark-secondary-color);
         }
 
-        /* PERBAIKAN UTAMA: Penyesuaian Media Query untuk Mobile */
-        @media (max-width: 768px) {
-            .container { padding: 0 0.8rem; }
-            
-            /* HEADER & NAVIGASI: Dibuat lebih ramping */
-            .header-content { flex-direction: column; align-items: center; gap: 0.5rem; }
-            .logo { font-size: 1.6rem; margin-bottom: 0.5rem; }
-            nav { width: 100%; order: 1; margin-bottom: 0.5rem; }
-            nav ul { justify-content: space-around; width: 100%; flex-wrap: nowrap; padding: 0 0.5rem; }
-            nav ul li { margin: 0 0.4rem; }
-            nav ul li a { 
-                font-size: clamp(0.75rem, 3vw, 0.9rem); 
-                padding: 0.5rem 0; 
+        /* PERBAIKAN UTAMA: Penyesuaian Media Query untuk Handphone */
+        @media screen and (max-width: 480px) {
+            /* CONTAINER: Padding diatur lebih kecil agar konten tidak menempel ke tepi layar */
+            .container {
+                padding: 0 0.5rem;
             }
-            #mode-toggle { 
+
+            /* HEADER: Navigasi dan logo disesuaikan */
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .logo {
+                font-size: 1.4rem;
+            }
+            .logo .icon {
+                font-size: 1.6rem;
+            }
+            nav {
+                width: 100%;
+                order: 1;
+            }
+            nav ul {
+                justify-content: space-around;
+                width: 100%;
+                flex-wrap: nowrap;
+                padding: 0;
+            }
+            nav ul li {
+                margin: 0 0.25rem;
+            }
+            nav ul li a {
+                font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+                padding: 0.5rem 0;
+            }
+            #mode-toggle {
                 order: 2;
                 position: absolute;
-                top: 1.25rem;
-                right: 0.8rem;
+                top: 0.8rem;
+                right: 0.5rem;
                 font-size: 1.3rem;
                 width: 36px;
                 height: 36px;
             }
+            
+            /* HERO SECTION: Padding vertikal dikurangi */
+            .hero-section {
+                padding: 2.5rem 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+            .hero-section h1 {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+            .hero-section p {
+                font-size: clamp(0.8rem, 3vw, 0.9rem);
+                margin: 0.5rem auto;
+            }
+            .hero-section .btn {
+                font-size: clamp(0.85rem, 3.5vw, 1rem);
+                padding: 8px 16px;
+            }
 
-            /* HERO SECTION: Ruang Vertikal lebih hemat */
-            .hero-section { padding: 3rem 1rem; margin-bottom: 1.5rem; }
-            .hero-section h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
-            .hero-section p { font-size: clamp(0.85rem, 3vw, 1rem); }
-            .hero-section .btn { font-size: clamp(0.9rem, 3vw, 1rem); }
-
-            /* MATERI & KARTU: Solusi Font Terpotong & Tata Letak Tombol */
-            .materials-header { flex-direction: column; align-items: flex-start; }
-            #search-input { max-width: 100%; margin-top: 0.5rem; }
-            .materials-grid { 
-                grid-template-columns: 1fr; /* Pastikan hanya 1 kolom untuk mobile */
-                gap: 1.5rem; 
+            /* MATERIALS PAGE: Tata letak kartu diatur ulang menjadi satu kolom */
+            .materials-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            #search-input {
+                max-width: 100%;
+                margin-top: 0.5rem;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .materials-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
             .material-card {
-                margin: 0 auto;
-                max-width: none;
-                width: 100%;
                 flex-direction: column;
             }
-            .material-info { padding: 1rem; }
-            .material-title { 
-                font-size: clamp(1rem, 4vw, 1.3rem); 
-                white-space: nowrap; 
-                overflow: hidden; 
-                text-overflow: ellipsis; 
+            .material-info {
+                padding: 0.8rem;
+            }
+            .material-title {
+                font-size: clamp(1rem, 4vw, 1.2rem);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .material-actions {
-                display: flex; /* Menggunakan flexbox untuk tombol */
-                justify-content: center;
+                flex-direction: column;
                 gap: 0.5rem;
-                margin-top: 1rem;
+                margin-top: 0.75rem;
             }
             .material-actions .btn {
-                width: auto; /* Tombol menyesuaikan konten */
-                flex-grow: 1; /* Biarkan tombol tumbuh mengisi ruang */
-                padding: 10px 15px;
-                font-size: clamp(0.8rem, 3vw, 1rem);
-            }
-            
-            /* FORMULIR & EDITOR */
-            #material-form { padding: 1.5rem; }
-            .form-actions { flex-direction: column; gap: 0.75rem; }
-            .btn { width: 100%; }
-            .editor-toolbar button {
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
-            }
-            .content-editable {
-                min-height: 200px;
-                padding: 12px;
-                font-size: clamp(0.9rem, 3vw, 1.1rem); 
+                width: 100%;
+                padding: 8px 12px;
+                font-size: 0.9rem;
             }
 
-            /* VIEW MATERI */
-            .material-viewer { padding: 1.5rem; }
-            .material-viewer h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
-            .material-viewer #material-content-viewer {
-                font-size: clamp(0.9rem, 3vw, 1rem);
+            /* FORM & EDITOR: Padding dan ukuran font diatur ulang */
+            #material-form {
+                padding: 1rem;
             }
-
-            /* FOOTER */
-            footer { padding: 1.25rem; font-size: clamp(0.7rem, 2.5vw, 0.8rem); }
-        }
-
-        /* Penyesuaian untuk Layar Sangat Kecil (di bawah 480px) */
-        @media (max-width: 480px) {
-            .container { padding: 0 0.5rem; }
-            .logo { font-size: 1.4rem; }
-            .logo .icon { font-size: 1.6rem; }
-            #mode-toggle { top: 0.8rem; right: 0.5rem; }
-            .hero-section { padding: 2.5rem 0.8rem; }
-            .card { padding: 1.2rem; }
-            .material-actions {
-                flex-direction: column; /* Tombol aksi tumpuk vertikal untuk layar sangat kecil */
-                gap: 0.5rem;
+            .form-group {
+                margin-bottom: 1rem;
             }
-            .material-actions .btn {
-                width: 100%; /* Tombol memenuhi lebar penuh */
+            label {
+                margin-bottom: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .form-control {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            .editor-toolbar {
+                padding: 5px;
             }
             .editor-toolbar button {
                 width: 30px;
                 height: 30px;
                 font-size: 0.9rem;
             }
+            .content-editable {
+                min-height: 150px;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            .form-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 1.5rem;
+            }
+            .form-actions .btn {
+                width: 100%;
+                padding: 10px 15px;
+            }
+
+            /* VIEW MATERIAL: Disesuaikan untuk keterbacaan di layar kecil */
+            .material-viewer {
+                padding: 1.5rem;
+            }
             .material-viewer h2 {
+                font-size: clamp(1.5rem, 5vw, 2rem);
                 word-wrap: break-word; /* Memastikan judul tidak memanjang di luar layar */
             }
             .material-viewer .material-date {
-                white-space: normal; /* Pastikan tanggal tidak terpotong */
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+            }
+            .material-viewer #material-content-viewer {
+                font-size: 0.9rem;
+            }
+            .material-viewer img {
+                margin-top: 1rem;
+            }
+            .back-link {
+                margin-top: 1.5rem;
+            }
+            .back-link .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            /* FOOTER: Ukuran font diperkecil */
+            footer {
+                padding: 1rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Media query untuk layar desktop yang lebih besar */
+        @media (min-width: 481px) {
+            .header-content {
+                flex-direction: row;
+            }
+            .material-actions {
+                flex-direction: row;
             }
         }
     </style>
