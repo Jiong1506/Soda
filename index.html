@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safety Zone - Penyimpanan Materi Pribadi</title>
+    <title>MateriKu - Penyimpanan Materi Pribadi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
             --dark-secondary-color: #c0c0ff;
             --dark-text-color: #e0e0e0;
             --dark-bg-color: #1a1a2e;
-            --dark-card-bg: #282a40; /* Latar belakang kartu/elemen lebih terang dari bg utama */
+            --dark-card-bg: #282a40;
             --dark-border-color: #444a66;
             --dark-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
             --dark-editor-toolbar-bg: #32354a;
@@ -54,7 +54,7 @@
         }
         body.dark-mode header,
         body.dark-mode footer,
-        body.dark-mode .card, /* Umum untuk semua card */
+        body.dark-mode .card,
         body.dark-mode #search-input {
             background: var(--dark-card-bg);
             color: var(--dark-text-color);
@@ -136,34 +136,31 @@
             transition: color 0.3s ease;
         }
         body.dark-mode .material-date,
-        body.dark-mode footer p,
         body.dark-mode #no-materials-message {
             color: var(--dark-secondary-color);
             transition: color 0.3s ease;
         }
         
-        /* === Material Card Specifics for Dark Mode === */
         body.dark-mode .material-card {
-            background: var(--dark-card-bg); /* Mengaplikasikan dark-card-bg ke material-card */
+            background: var(--dark-card-bg);
             border-color: var(--dark-border-color);
-            box-shadow: var(--dark-shadow); /* Menggunakan shadow dark mode */
+            box-shadow: var(--dark-shadow);
             transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
         body.dark-mode .material-card:hover {
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35); /* Sedikit lebih gelap untuk hover di dark mode */
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
         }
         body.dark-mode .material-card .material-title {
-            color: var(--dark-text-color); /* Memastikan judul di card gelap */
+            color: var(--dark-text-color);
             transition: color 0.3s ease;
         }
         body.dark-mode .material-card .material-date {
-            color: var(--dark-secondary-color); /* Memastikan tanggal di card gelap */
+            color: var(--dark-secondary-color);
             transition: color 0.3s ease;
         }
-        /* Akhir Material Card Specifics */
 
         body.dark-mode .material-thumbnail {
-            background: var(--dark-editor-toolbar-bg); /* Background thumbnail gelap */
+            background: var(--dark-editor-toolbar-bg);
             transition: background 0.3s ease;
             color: var(--dark-text-color); 
             font-size: 3rem; 
@@ -284,6 +281,7 @@
         }
         .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; }
         .logo .icon { margin-right: 10px; font-size: 2rem; }
+        nav { flex-grow: 1; text-align: center; }
         nav ul { display: flex; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center; }
         nav ul li { margin-left: 1.5rem; }
         nav ul li a { 
@@ -349,6 +347,9 @@
             margin-bottom: 2rem;
             box-shadow: var(--shadow);
         }
+        .hero-section h1 { font-size: var(--font-size-h1); }
+        .hero-section p { font-size: var(--font-size-body); max-width: 600px; margin: 1rem auto; }
+
 
         /* Materials Page */
         .materials-header {
@@ -373,7 +374,7 @@
         
         .materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .material-card {
-            background: var(--card-bg); /* Ini harus menyesuaikan dark-mode */
+            background: var(--card-bg);
             border-radius: 12px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
@@ -392,11 +393,9 @@
             overflow: hidden; 
             background: #e9ecef;
             transition: background 0.3s ease;
-            color: var(--text-color); /* Default text color in light mode */
-            font-size: 3rem; 
-            font-weight: bold;
         }
         .material-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .material-thumbnail i { color: var(--secondary-color); opacity: 0.6; font-size: 3rem; }
         .material-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
         .material-title { font-size: var(--font-size-h3); font-weight: 600; margin: 0 0 0.5rem; }
         .material-date { font-size: var(--font-size-small); color: var(--secondary-color); }
@@ -416,7 +415,7 @@
         [contenteditable="true"]:empty:before { content: attr(placeholder); color: var(--text-color); opacity: 0.7; pointer-events: none; display: block; transition: color 0.3s ease; }
         .content-editable ul { list-style: none; padding-left: 1.5em; }
         .content-editable ul li::before { content: attr(data-icon); margin-right: 0.5em; }
-        .content-editable ul li span { /* Untuk ikon di mode gelap */
+        .content-editable ul li span {
             color: var(--primary-color);
             transition: color 0.3s ease;
         }
@@ -480,7 +479,7 @@
         /* Footer */
         footer {
             background: var(--card-bg);
-            color: var(--secondary-color);
+            color: var(--text-color);
             padding: 1.5rem;
             text-align: center;
             border-top: 1px solid var(--border-color);
@@ -488,16 +487,111 @@
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         footer p { margin: 0; }
+        body.dark-mode footer {
+            color: var(--dark-secondary-color);
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; align-items: center; gap: 1rem; }
-            nav ul { justify-content: space-around; width: 100%; }
+            /* Header & Navigasi */
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 1rem 0;
+            }
+            .logo {
+                font-size: 1.6rem;
+                margin-bottom: 0.5rem;
+            }
+            .logo .icon {
+                font-size: 1.8rem;
+            }
+            nav { width: 100%; order: 1; margin-bottom: 0.5rem; }
+            nav ul {
+                justify-content: space-around;
+                width: 100%;
+                flex-wrap: nowrap;
+            }
             nav ul li { margin: 0 0.5rem; }
+            nav ul li a { font-size: 0.9rem; padding: 0.5rem 0; }
+            #mode-toggle { 
+                order: 2;
+                position: absolute;
+                top: 1.25rem;
+                right: 1rem;
+                font-size: 1.3rem;
+                width: 36px;
+                height: 36px;
+            }
+
+            /* Hero Section */
+            .hero-section {
+                padding: 3rem 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .hero-section h1 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                margin-bottom: 0.75rem;
+            }
+            .hero-section p {
+                font-size: clamp(0.85rem, 3vw, 1rem);
+                margin: 0.75rem auto 1.5rem;
+            }
+            .hero-section .btn {
+                font-size: 0.95rem;
+                padding: 12px 20px;
+            }
+
+            /* General Content & Buttons */
+            .main-content { padding: 1.5rem 0 3rem; }
             .materials-header { flex-direction: column; align-items: flex-start; }
-            #search-input { max-width: 100%; }
+            #search-input { max-width: 100%; margin-top: 0.5rem; }
             .form-actions { flex-direction: column; gap: 0.75rem; }
-            .btn { width: 100%; }
+            .btn { width: 100%; padding: 12px 15px; }
+
+            /* Material Card */
+            .material-card {
+                margin: 0 auto;
+                max-width: 320px;
+            }
+            .materials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            /* Form & Editor */
+            #material-form { padding: 1.5rem; }
+            .editor-toolbar button {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            .content-editable {
+                min-height: 200px;
+            }
+
+            /* View Material */
+            .material-viewer { padding: 1.5rem; }
+            .material-viewer h2 { font-size: var(--font-size-h2); }
+
+            /* Footer */
+            footer {
+                padding: 1.25rem;
+                font-size: 0.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo { font-size: 1.4rem; }
+            .logo .icon { font-size: 1.6rem; }
+            nav ul li a { font-size: 0.85rem; padding: 0.4rem 0; }
+            #mode-toggle { top: 1rem; right: 0.75rem; font-size: 1.2rem; width: 32px; height: 32px; }
+            .hero-section { padding: 2.5rem 1rem; }
+            .hero-section h1 { font-size: clamp(1.5rem, 7vw, 2rem); }
+            .hero-section p { font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
+            .hero-section .btn { font-size: 0.9rem; padding: 10px 18px; }
+            .card { padding: 1.5rem; }
+            footer { font-size: 0.75rem; padding: 1rem; }
         }
     </style>
 </head>
@@ -521,7 +615,7 @@
         <section id="home" class="page active">
             <div class="hero-section">
                 <h1>Ayo Simpan Materinya!</h1>
-                <p style="font-size: var(--font-size-body); max-width: 600px; margin: 1rem auto;">Safety Zone dibuat untuk menyimpan, mengelola, dan mengakses semua materi pembelajaran.</p>
+                <p>Safety Zone dibuat untuk menyimpan, mengelola, dan mengakses semua materi pembelajaran.</p>
                 <a href="#" class="btn btn-primary nav-link" data-page="add-material"><i class="fas fa-plus-circle"></i> Tambah Materi Baru</a>
             </div>
         </section>
@@ -679,6 +773,52 @@
             document.getElementById(pageId).classList.add('active');
         }
 
+        async function loadMaterials() {
+            const { data: materials, error } = await supabase.from("materials").select("*").order("created_at", { ascending: false });
+            const listElement = document.getElementById("materials-list");
+            const noMaterialsMessage = document.getElementById("no-materials-message");
+            listElement.innerHTML = "";
+
+            if (error) {
+                showNotification("Gagal memuat materi: " + error.message, true);
+                noMaterialsMessage.style.display = "block";
+                noMaterialsMessage.textContent = "Gagal memuat materi. Silakan coba lagi nanti.";
+                return;
+            }
+
+            if (materials.length === 0) {
+                noMaterialsMessage.style.display = "block";
+                noMaterialsMessage.textContent = "Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!";
+            } else {
+                noMaterialsMessage.style.display = "none";
+                materials.forEach(m => {
+                    const date = new Date(m.created_at).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" });
+                    const card = document.createElement("div");
+                    card.className = "material-card";
+                    card.innerHTML = `
+                        <div class="material-thumbnail">
+                            ${m.image ? `<img src="${m.image}" alt="${m.title}">` : `<i class="fas fa-file-alt" style="color: var(--secondary-color); opacity: 0.6;"></i>`}
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">${m.title}</h3>
+                            <small class="material-date">Ditambahkan pada: ${date}</small>
+                            <div class="material-actions">
+                                <button class="btn btn-edit" onclick="editMaterial(${m.id})"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn btn-danger" onclick="deleteMaterial(${m.id})"><i class="fas fa-trash-alt"></i> Hapus</button>
+                            </div>
+                        </div>`;
+                    listElement.appendChild(card);
+                    // Add click event for the card itself to view material
+                    card.addEventListener('click', (e) => {
+                        // Check if the click target is NOT an action button
+                        if (!e.target.closest('.material-actions')) {
+                            viewMaterial(m.id);
+                        }
+                    });
+                });
+            }
+        }
+
         async function handleForm(e) {
             e.preventDefault();
             const id = document.getElementById('material-id').value;
@@ -720,7 +860,7 @@
             let updateData = { title, content, updated_at: new Date().toISOString() };
             let newImageUrl = existingImageUrl;
             if (file) {
-                if (file.size > MAX_FILE_SIZE) { showNotification("Ukuran file maksimal 10MB!", true); return; }
+                if (file.size > MAX_FILE.SIZE) { showNotification("Ukuran file maksimal 10MB!", true); return; }
                 if (existingImageUrl && existingImageUrl.includes(SUPABASE_URL)) {
                     const oldFileName = existingImageUrl.split('/').pop();
                     const { error: deleteOldError } = await supabase.storage.from("materi").remove([oldFileName]);
@@ -771,46 +911,6 @@
             loadMaterials();
         }
 
-        async function loadMaterials() {
-            const list = document.getElementById("materials-list");
-            const noMaterialsMessage = document.getElementById("no-materials-message");
-            list.innerHTML = "";
-            noMaterialsMessage.textContent = "Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!";
-            const { data: materials, error } = await supabase.from("materials").select("*").order("created_at", { ascending: false });
-            if (error) { list.innerHTML = `<p style="color:var(--accent-red); text-align:center;">Gagal memuat materi: ${error.message}</p>`; noMaterialsMessage.style.display = 'none'; return; }
-            if (!materials.length) { noMaterialsMessage.style.display = 'block'; return; } else { noMaterialsMessage.style.display = 'none'; }
-            
-            materials.forEach(m => {
-                const card = document.createElement("div");
-                card.className = "material-card";
-                const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
-                
-                let thumbnailContent = '';
-                if (m.image) {
-                    thumbnailContent = `<img src="${m.image}" alt="${m.title}">`;
-                } else if (m.title && m.title.length > 0) {
-                    thumbnailContent = `<span style="font-size: 3rem;">${m.title.charAt(0).toUpperCase()}</span>`;
-                } else {
-                    thumbnailContent = `<i class="fas fa-file-alt"></i>`;
-                }
-
-                card.innerHTML = `
-                    <div class="material-thumbnail">
-                        ${thumbnailContent}
-                    </div>
-                    <div class="material-info">
-                        <h3 class="material-title">${m.title}</h3>
-                        <p class="material-date"><small>Ditambahkan pada: ${date}</small></p>
-                        <div class="material-actions">
-                            <button class="btn btn-edit" onclick="event.stopPropagation(); editMaterial(${m.id})"><i class="fas fa-edit"></i> Edit</button>
-                            <button class="btn btn-danger" onclick="event.stopPropagation(); deleteMaterial(${m.id})"><i class="fas fa-trash"></i> Hapus</button>
-                        </div>
-                    </div>`;
-                card.addEventListener("click", e => { if (!e.target.closest(".material-actions button")) viewMaterial(m); });
-                list.appendChild(card);
-            });
-        }
-
         function searchMaterials(query) {
             const cards = document.querySelectorAll('.material-card');
             const lowerCaseQuery = query.toLowerCase();
@@ -840,42 +940,49 @@
             modal.style.display = 'block';
         }
 
-        function viewMaterial(m) {
-            const viewer = document.getElementById("material-viewer");
-            const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = m.content;
-            const listItems = tempDiv.querySelectorAll('ul li');
-            listItems.forEach(li => {
-                const icon = li.getAttribute('data-icon');
-                if (icon) {
-                    li.innerHTML = `<span style="margin-right:0.5em;" class="list-icon">${icon}</span>` + li.innerHTML;
+        function viewMaterial(id) {
+            supabase.from("materials").select("*").eq("id", id).single().then(({ data: m, error }) => {
+                if (error) {
+                    showNotification("Gagal memuat materi: " + error.message, true);
+                    return;
                 }
+                const viewer = document.getElementById("material-viewer");
+                const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
+                
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = m.content;
+                const listItems = tempDiv.querySelectorAll('ul li');
+                listItems.forEach(li => {
+                    const icon = li.getAttribute('data-icon');
+                    if (icon) {
+                        li.innerHTML = `<span style="margin-right:0.5em;" class="list-icon">${icon}</span>` + li.innerHTML;
+                    }
+                });
+
+                const contentHTML = tempDiv.innerHTML;
+                viewer.innerHTML = `
+                    <h2>${m.title}</h2>
+                    <p class="material-date"><small>Ditambahkan pada: ${date}</small></p>
+                    <hr style="border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+                    ${m.image ? `<img src="${m.image}" alt="${m.title}" style="max-width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;box-shadow:var(--shadow);border:1px solid var(--border-color);" class="zoomable-image">` : ""}
+                    <div id="material-content-viewer" style="line-height: 1.6; font-size: var(--font-size-body);">${contentHTML}</div>`;
+                
+                const images = viewer.querySelectorAll('img');
+                images.forEach(img => {
+                    img.style.cursor = 'pointer';
+                    img.addEventListener('click', () => showImageModal(img.src));
+                });
+
+                const listIconsInViewer = viewer.querySelectorAll('.list-icon');
+                if (document.body.classList.contains('dark-mode')) {
+                    listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--dark-primary-color)');
+                } else {
+                    listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--primary-color)');
+                }
+
+
+                showPage("view-material");
             });
-
-            const contentHTML = tempDiv.innerHTML;
-            viewer.innerHTML = `
-                <h2>${m.title}</h2>
-                <p class="material-date"><small>Ditambahkan pada: ${date}</small></p>
-                <hr style="border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
-                ${m.image ? `<img src="${m.image}" alt="${m.title}" style="max-width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;box-shadow:var(--shadow);border:1px solid var(--border-color);" class="zoomable-image">` : ""}
-                <div id="material-content-viewer" style="line-height: 1.6; font-size: var(--font-size-body);">${contentHTML}</div>`;
-            
-            const images = viewer.querySelectorAll('img');
-            images.forEach(img => {
-                img.style.cursor = 'pointer';
-                img.addEventListener('click', () => showImageModal(img.src));
-            });
-
-            const listIconsInViewer = viewer.querySelectorAll('.list-icon');
-            if (document.body.classList.contains('dark-mode')) {
-                listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--dark-primary-color)');
-            } else {
-                listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--primary-color)');
-            }
-
-
-            showPage("view-material");
         }
 
         async function editMaterial(id) {
