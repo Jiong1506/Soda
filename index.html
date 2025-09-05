@@ -203,7 +203,6 @@
             color: var(--dark-text-color);
         }
 
-
         /* Mode Toggle Button */
         #mode-toggle {
             background: none;
@@ -231,12 +230,17 @@
             background-color: rgba(255,255,255,0.1);
         }
 
-
         .container {
             width: 100%;
             max-width: 1200px;
             margin: auto;
             padding: 0 1rem;
+        }
+        
+        /* Pastikan semua elemen tidak melampaui lebar layar */
+        img, video, iframe, embed, object {
+            max-width: 100%;
+            height: auto;
         }
         
         /* Notifikasi */
@@ -322,6 +326,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
+            word-wrap: break-word; /* Memastikan teks tombol tidak terpotong */
         }
         .btn i { margin-right: 8px; }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
@@ -418,7 +423,20 @@
         .editor-toolbar { background-color: #f1f3f5; border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; display: flex; gap: 5px; padding: 8px; flex-wrap: wrap; }
         .editor-toolbar button { background: none; border: none; cursor: pointer; font-size: 1.1rem; width: 36px; height: 36px; border-radius: 5px; transition: background-color 0.2s ease, color 0.2s ease; color: var(--text-color); }
         .editor-toolbar button:hover { background-color: var(--border-color); }
-        .content-editable { min-height: 250px; background: var(--card-bg); padding: 15px; border-radius: 0 0 8px 8px; font-family: 'Roboto', sans-serif; border: 1px solid var(--border-color); border-top: none; outline: none; line-height: 1.6; font-size: var(--font-size-body); transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+        .content-editable { 
+            min-height: 250px; 
+            background: var(--card-bg); 
+            padding: 15px; 
+            border-radius: 0 0 8px 8px; 
+            font-family: 'Roboto', sans-serif; 
+            border: 1px solid var(--border-color); 
+            border-top: none; 
+            outline: none; 
+            line-height: 1.6; 
+            font-size: var(--font-size-body); 
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; 
+            word-wrap: break-word;
+        }
         [contenteditable="true"]:empty:before { content: attr(placeholder); color: var(--text-color); opacity: 0.7; pointer-events: none; display: block; transition: color 0.3s ease; }
         .content-editable ul { list-style: none; padding-left: 1.5em; }
         .content-editable ul li::before { content: attr(data-icon); margin-right: 0.5em; }
@@ -429,7 +447,6 @@
         body.dark-mode .content-editable ul li span {
             color: var(--dark-primary-color);
         }
-
 
         .image-preview-container { text-align: center; margin-top: 1.5rem; }
         .image-preview-container img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
@@ -442,7 +459,7 @@
         .material-viewer .material-date { font-size: var(--font-size-small); color: var(--secondary-color); margin-bottom: 2rem; display: block; }
         .material-viewer img { max-width: 100%; height: auto; border-radius: 12px; margin-top: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border-color); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease; }
         .material-viewer img:hover { transform: scale(1.02); }
-        .material-viewer p { font-size: var(--font-size-body); line-height: 1.6; }
+        .material-viewer p { font-size: var(--font-size-body); line-height: 1.6; word-wrap: break-word; }
         .material-viewer .content-editable { font-size: var(--font-size-body); }
         .back-link { margin-top: 2rem; text-align: center; }
 
@@ -500,12 +517,12 @@
 
         /* PERBAIKAN UTAMA: Penyesuaian Media Query untuk Handphone */
         @media screen and (max-width: 480px) {
-            /* CONTAINER: Padding diatur lebih kecil agar konten tidak menempel ke tepi layar */
+            /* Kontainer: Padding diatur lebih kecil */
             .container {
                 padding: 0 0.5rem;
             }
 
-            /* HEADER: Navigasi dan logo disesuaikan */
+            /* Header: Navigasi dan logo disesuaikan */
             .header-content {
                 flex-direction: column;
                 align-items: center;
@@ -544,7 +561,7 @@
                 height: 36px;
             }
             
-            /* HERO SECTION: Padding vertikal dikurangi */
+            /* Hero Section: Padding vertikal dikurangi */
             .hero-section {
                 padding: 2.5rem 0.8rem;
                 margin-bottom: 1.5rem;
@@ -561,7 +578,7 @@
                 padding: 8px 16px;
             }
 
-            /* MATERIALS PAGE: Tata letak kartu diatur ulang menjadi satu kolom */
+            /* Materials Page: Tata letak kartu diatur ulang menjadi satu kolom */
             .materials-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -600,7 +617,7 @@
                 font-size: 0.9rem;
             }
 
-            /* FORM & EDITOR: Padding dan ukuran font diatur ulang */
+            /* Form & Editor: Padding dan ukuran font diatur ulang */
             #material-form {
                 padding: 1rem;
             }
@@ -617,6 +634,7 @@
             }
             .editor-toolbar {
                 padding: 5px;
+                flex-wrap: wrap; /* Pastikan toolbar tidak keluar frame */
             }
             .editor-toolbar button {
                 width: 30px;
@@ -627,6 +645,7 @@
                 min-height: 150px;
                 padding: 10px;
                 font-size: 0.9rem;
+                word-wrap: break-word;
             }
             .form-actions {
                 flex-direction: column;
@@ -638,13 +657,13 @@
                 padding: 10px 15px;
             }
 
-            /* VIEW MATERIAL: Disesuaikan untuk keterbacaan di layar kecil */
+            /* View Material: Disesuaikan untuk keterbacaan di layar kecil */
             .material-viewer {
                 padding: 1.5rem;
             }
             .material-viewer h2 {
                 font-size: clamp(1.5rem, 5vw, 2rem);
-                word-wrap: break-word; /* Memastikan judul tidak memanjang di luar layar */
+                word-wrap: break-word;
             }
             .material-viewer .material-date {
                 font-size: 0.8rem;
@@ -652,6 +671,7 @@
             }
             .material-viewer #material-content-viewer {
                 font-size: 0.9rem;
+                word-wrap: break-word;
             }
             .material-viewer img {
                 margin-top: 1rem;
@@ -664,7 +684,7 @@
                 font-size: 0.9rem;
             }
 
-            /* FOOTER: Ukuran font diperkecil */
+            /* Footer: Ukuran font diperkecil */
             footer {
                 padding: 1rem;
                 font-size: 0.75rem;
@@ -1066,7 +1086,6 @@
                 } else {
                     listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--primary-color)');
                 }
-
 
                 showPage("view-material");
             });
