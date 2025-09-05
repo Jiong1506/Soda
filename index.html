@@ -1,229 +1,917 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MateriKu - Penyimpanan Materi Pribadi</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* === CSS asli kamu di sini (aku tidak ubah desain sama sekali) === */
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; background:#f5f7ff; }
-    .container { width: 100%; max-width: 1200px; margin: auto; padding: 0 20px; }
-    header { background: linear-gradient(135deg,#6C63FF,#36D1DC); color: #fff; padding: 1rem 0; position:sticky;top:0;z-index:100; }
-    .header-content { display:flex;justify-content:space-between;align-items:center; }
-    .logo { font-size:1.5rem;font-weight:bold; }
-    nav ul { display:flex;list-style:none;padding:0;margin:0; }
-    nav ul li { margin-left:1rem; }
-    nav ul li a { color:#fff;text-decoration:none;padding:6px 12px;border-radius:20px; }
-    nav ul li a:hover { background:rgba(255,255,255,0.2); }
-    .btn { padding:10px 20px;border:none;border-radius:30px;cursor:pointer;font-weight:500; }
-    .btn-edit { background:#ffc107;color:#000; }
-    .btn-danger { background:#dc3545;color:#fff; }
-    .btn-outline { border:2px solid #6C63FF;background:transparent;color:#6C63FF; }
-    .btn-outline:hover { background:#6C63FF;color:#fff; }
-    .main-content { padding:2rem 0; }
-    .page { display:none; }
-    .page.active { display:block; }
-    .materials-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px; }
-    .material-card { background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);cursor:pointer; }
-    .material-thumbnail { height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f8f9fa; }
-    .material-thumbnail img { width:100%;height:100%;object-fit:contain; }
-    .material-info { padding:1rem; }
-    .material-title { font-size:1.2rem;font-weight:bold; }
-    .material-date { font-size:0.85rem;color:#666; }
-    .material-actions { display:flex;justify-content:space-between;margin-top:1rem; }
-    footer { background:#212529;color:#fff;padding:1rem;text-align:center;margin-top:2rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Zone - Penyimpanan Materi Pribadi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* === Variabel & Reset Dasar === */
+        :root {
+            --primary-color: #5d5dff;
+            --secondary-color: #a4a4ff;
+            --text-color: #333;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --accent-green: #2ecc71;
+            --accent-red: #e74c3c;
+            --border-color: #e0e6f0;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            
+            /* Dark Mode Variables */
+            --dark-primary-color: #9292ff;
+            --dark-secondary-color: #c0c0ff;
+            --dark-text-color: #e0e0e0;
+            --dark-bg-color: #1a1a2e;
+            --dark-card-bg: #282a40; /* Latar belakang kartu/elemen lebih terang dari bg utama */
+            --dark-border-color: #444a66;
+            --dark-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            --dark-editor-toolbar-bg: #32354a;
+
+            /* Font Sizes Adjusted with clamp() */
+            --font-size-h1: clamp(2.2rem, 5vw, 3.2rem);
+            --font-size-h2: clamp(1.8rem, 4vw, 2.5rem);
+            --font-size-h3: clamp(1.1rem, 2.5vw, 1.3rem);
+            --font-size-body: clamp(0.9rem, 2vw, 1.1rem);
+            --font-size-small: clamp(0.75rem, 1.5vw, 0.9rem);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+        body.dark-mode header,
+        body.dark-mode footer,
+        body.dark-mode .card, /* Umum untuk semua card */
+        body.dark-mode #search-input {
+            background: var(--dark-card-bg);
+            color: var(--dark-text-color);
+            border-color: var(--dark-border-color);
+            box-shadow: var(--dark-shadow);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        body.dark-mode .hero-section {
+            background: linear-gradient(135deg, var(--dark-bg-color), var(--dark-card-bg));
+            box-shadow: var(--dark-shadow);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        body.dark-mode .logo,
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3 {
+            color: var(--dark-text-color);
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .logo .icon {
+            color: var(--dark-primary-color);
+            transition: color 0.3s ease;
+        }
+        body.dark-mode nav ul li a {
+            color: var(--dark-text-color);
+            transition: color 0.3s ease;
+        }
+        body.dark-mode nav ul li a::after {
+            background: var(--dark-primary-color);
+            transition: background 0.3s ease;
+        }
+        body.dark-mode nav ul li a:hover,
+        body.dark-mode nav ul li a.active {
+            color: var(--dark-primary-color);
+        }
+
+        body.dark-mode #search-input {
+            color: var(--dark-text-color);
+            border-color: var(--dark-border-color);
+        }
+        body.dark-mode #search-input::placeholder {
+            color: rgba(224, 224, 224, 0.6);
+        }
+        body.dark-mode #search-input:focus {
+            border-color: var(--dark-primary-color);
+            box-shadow: 0 0 0 3px rgba(146, 146, 255, 0.15);
+        }
+        
+        body.dark-mode .form-control {
+            background: var(--dark-card-bg);
+            color: var(--dark-text-color);
+            border-color: var(--dark-border-color);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        body.dark-mode .form-control:focus {
+            border-color: var(--dark-primary-color);
+            box-shadow: 0 0 0 3px rgba(146, 146, 255, 0.15);
+        }
+        body.dark-mode .editor-toolbar {
+            background-color: var(--dark-editor-toolbar-bg);
+            border-color: var(--dark-border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        body.dark-mode .editor-toolbar button {
+            color: var(--dark-text-color);
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .editor-toolbar button:hover {
+            background-color: var(--dark-border-color);
+        }
+        body.dark-mode .content-editable {
+            background: var(--dark-card-bg);
+            border-color: var(--dark-border-color);
+            color: var(--dark-text-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        body.dark-mode [contenteditable="true"]:empty:before {
+            color: rgba(224, 224, 224, 0.6);
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .material-date,
+        body.dark-mode footer p,
+        body.dark-mode #no-materials-message {
+            color: var(--dark-secondary-color);
+            transition: color 0.3s ease;
+        }
+        
+        /* === Material Card Specifics for Dark Mode === */
+        body.dark-mode .material-card {
+            background: var(--dark-card-bg); /* Mengaplikasikan dark-card-bg ke material-card */
+            border-color: var(--dark-border-color);
+            box-shadow: var(--dark-shadow); /* Menggunakan shadow dark mode */
+            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        body.dark-mode .material-card:hover {
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35); /* Sedikit lebih gelap untuk hover di dark mode */
+        }
+        body.dark-mode .material-card .material-title {
+            color: var(--dark-text-color); /* Memastikan judul di card gelap */
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .material-card .material-date {
+            color: var(--dark-secondary-color); /* Memastikan tanggal di card gelap */
+            transition: color 0.3s ease;
+        }
+        /* Akhir Material Card Specifics */
+
+        body.dark-mode .material-thumbnail {
+            background: var(--dark-editor-toolbar-bg); /* Background thumbnail gelap */
+            transition: background 0.3s ease;
+            color: var(--dark-text-color); 
+            font-size: 3rem; 
+            font-weight: bold;
+        }
+        body.dark-mode .material-thumbnail i {
+            color: var(--dark-secondary-color);
+            opacity: 0.6;
+            font-size: 3rem;
+        }
+        body.dark-mode .material-thumbnail p {
+            color: var(--dark-text-color);
+        }
+
+        body.dark-mode hr {
+            border-top: 1px solid var(--dark-border-color);
+            transition: border-color 0.3s ease;
+        }
+        body.dark-mode .modal {
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+        body.dark-mode .close-modal {
+            color: #d0d0d0;
+        }
+        body.dark-mode .close-modal:hover {
+            color: #f1f1f1;
+        }
+        body.dark-mode .btn-outline {
+            color: var(--dark-primary-color);
+            border-color: var(--dark-primary-color);
+        }
+        body.dark-mode .btn-outline:hover {
+            background: var(--dark-primary-color);
+            color: var(--dark-text-color);
+        }
+        body.dark-mode label {
+            color: var(--dark-text-color);
+        }
+
+
+        /* Mode Toggle Button */
+        #mode-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        #mode-toggle:hover {
+            color: var(--primary-color);
+            background-color: rgba(0,0,0,0.05);
+        }
+        body.dark-mode #mode-toggle {
+            color: var(--dark-text-color);
+        }
+        body.dark-mode #mode-toggle:hover {
+            color: var(--dark-primary-color);
+            background-color: rgba(255,255,255,0.1);
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 1rem;
+        }
+        
+        /* Notifikasi */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent-green);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+            min-width: 250px;
+            text-align: center;
+        }
+        .notification.error { background-color: var(--accent-red); }
+        @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0 0 1rem; }
+        h1 { font-size: var(--font-size-h1); }
+        h2 { font-size: var(--font-size-h2); }
+        h3 { font-size: var(--font-size-h3); }
+        p { font-size: var(--font-size-body); }
+        small { font-size: var(--font-size-small); }
+
+        /* Header & Navigasi */
+        header {
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; }
+        .logo .icon { margin-right: 10px; font-size: 2rem; }
+        nav ul { display: flex; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center; }
+        nav ul li { margin-left: 1.5rem; }
+        nav ul li a { 
+            color: var(--text-color); 
+            text-decoration: none; 
+            font-weight: 500; 
+            position: relative; 
+            padding: 0.5rem 0; 
+            transition: color 0.3s ease; 
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        nav ul li a:hover, nav ul li a.active { color: var(--primary-color); }
+        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; left: 0; }
+
+        /* Tombol & Card */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .btn i { margin-right: 8px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn-primary { background: var(--primary-color); color: #fff; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); }
+        .btn-outline:hover { background: var(--primary-color); color: #fff; }
+        .btn-edit { background-color: #ffc107; color: #333; }
+        .btn-edit:hover { background-color: #e0a800; }
+        .btn-danger { background-color: var(--accent-red); color: #fff; }
+        .btn-danger:hover { background-color: #c82333; }
+        
+        .card { background: var(--card-bg); border-radius: 12px; box-shadow: var(--shadow); padding: 2rem; transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+
+        /* Konten Utama */
+        .main-content { padding: 2rem 0 4rem; }
+        .page { display: none; animation: fadeIn 0.6s ease-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--bg-color), #e9ecef);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Materials Page */
+        .materials-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        #search-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        #search-input:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.1); }
+        
+        .materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .material-card {
+            background: var(--card-bg); /* Ini harus menyesuaikan dark-mode */
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .material-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12); }
+        .material-thumbnail { 
+            height: 180px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            background: #e9ecef;
+            transition: background 0.3s ease;
+            color: var(--text-color); /* Default text color in light mode */
+            font-size: 3rem; 
+            font-weight: bold;
+        }
+        .material-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .material-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .material-title { font-size: var(--font-size-h3); font-weight: 600; margin: 0 0 0.5rem; }
+        .material-date { font-size: var(--font-size-small); color: var(--secondary-color); }
+        .material-actions { display: flex; gap: 10px; margin-top: 1.25rem; }
+
+        /* Form & Editor */
+        #material-form { max-width: 700px; margin: auto; padding: 2.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-color); }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; font-size: var(--font-size-body); }
+        .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.1); }
+
+        .editor-toolbar { background-color: #f1f3f5; border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; display: flex; gap: 5px; padding: 8px; flex-wrap: wrap; }
+        .editor-toolbar button { background: none; border: none; cursor: pointer; font-size: 1.1rem; width: 36px; height: 36px; border-radius: 5px; transition: background-color 0.2s ease, color 0.2s ease; color: var(--text-color); }
+        .editor-toolbar button:hover { background-color: var(--border-color); }
+        .content-editable { min-height: 250px; background: var(--card-bg); padding: 15px; border-radius: 0 0 8px 8px; font-family: 'Roboto', sans-serif; border: 1px solid var(--border-color); border-top: none; outline: none; line-height: 1.6; font-size: var(--font-size-body); transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+        [contenteditable="true"]:empty:before { content: attr(placeholder); color: var(--text-color); opacity: 0.7; pointer-events: none; display: block; transition: color 0.3s ease; }
+        .content-editable ul { list-style: none; padding-left: 1.5em; }
+        .content-editable ul li::before { content: attr(data-icon); margin-right: 0.5em; }
+        .content-editable ul li span { /* Untuk ikon di mode gelap */
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+        body.dark-mode .content-editable ul li span {
+            color: var(--dark-primary-color);
+        }
+
+
+        .image-preview-container { text-align: center; margin-top: 1.5rem; }
+        .image-preview-container img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
+
+        .form-actions { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+
+        /* View Material Page */
+        .material-viewer { padding: 2.5rem; }
+        .material-viewer h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+        .material-viewer .material-date { font-size: var(--font-size-small); color: var(--secondary-color); margin-bottom: 2rem; display: block; }
+        .material-viewer img { max-width: 100%; height: auto; border-radius: 12px; margin-top: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border-color); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .material-viewer img:hover { transform: scale(1.02); }
+        .material-viewer p { font-size: var(--font-size-body); line-height: 1.6; }
+        .material-viewer .content-editable { font-size: var(--font-size-body); }
+        .back-link { margin-top: 2rem; text-align: center; }
+
+        /* Modal / Pop-up Gambar (untuk View Page) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeInModal 0.3s;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoom { from { transform: scale(0.1); } to { transform: scale(1); } }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close-modal:hover, .close-modal:focus { color: #bbb; text-decoration: none; }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            color: var(--secondary-color);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            font-size: var(--font-size-small);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        footer p { margin: 0; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; align-items: center; gap: 1rem; }
+            nav ul { justify-content: space-around; width: 100%; }
+            nav ul li { margin: 0 0.5rem; }
+            .materials-header { flex-direction: column; align-items: flex-start; }
+            #search-input { max-width: 100%; }
+            .form-actions { flex-direction: column; gap: 0.75rem; }
+            .btn { width: 100%; }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container header-content">
-      <div class="logo"><i class="fas fa-book"></i> MateriKu</div>
-      <nav>
-        <ul>
-          <li><a href="#" class="nav-link" data-page="home">Beranda</a></li>
-          <li><a href="#" class="nav-link" data-page="materials">Materi Saya</a></li>
-          <li><a href="#" class="nav-link" data-page="add-material">Tambah Materi</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container main-content">
-    <!-- Home Page -->
-    <section id="home" class="page active">
-      <h2>Selamat datang di MateriKu</h2>
-      <p>Simpan dan kelola materi pembelajaran Anda dengan mudah.</p>
-      <a href="#" class="btn nav-link" data-page="add-material" style="background:linear-gradient(135deg,#6C63FF,#36D1DC);color:#fff;">Tambah Materi Baru</a>
-    </section>
-
-    <!-- Materials Page -->
-    <section id="materials" class="page">
-      <h2>Materi Saya</h2>
-      <div class="materials-grid" id="materials-list"></div>
-    </section>
-
-    <!-- Add Material Page -->
-    <section id="add-material" class="page">
-      <h2 id="form-title">Tambah Materi Baru</h2>
-      <form id="material-form">
-        <input type="hidden" id="material-id">
-        <div>
-          <label for="material-title">Judul</label>
-          <input type="text" id="material-title" class="form-control" required>
+    <div id="notification-container"></div>
+    <header>
+        <div class="container header-content">
+            <div class="logo"><span class="icon">🐱</span> Safety Zone</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Beranda</a></li>
+                    <li><a href="#" class="nav-link" data-page="materials">Materi Saya</a></li>
+                    <li><a href="#" class="nav-link" data-page="add-material">Tambah Materi</a></li>
+                </ul>
+            </nav>
+            <button id="mode-toggle"><i class="fas fa-moon"></i></button>
         </div>
-        <div>
-          <label for="material-content">Konten</label>
-          <div id="material-content" class="form-control" contenteditable="true" style="min-height:120px;background:#fff;border:1px solid #ccc;padding:10px;"></div>
-        </div>
-        <div>
-          <label for="material-image">Upload Gambar</label>
-          <input type="file" id="material-image" accept="image/*">
-        </div>
-        <button type="submit" class="btn" style="background:linear-gradient(135deg,#6C63FF,#36D1DC);color:#fff;" id="save-button">Simpan Materi</button>
-        <a href="#" class="btn btn-outline nav-link" data-page="materials" id="cancel-button" style="display:none;">Batal</a>
-      </form>
-    </section>
+    </header>
 
-    <!-- View Material Page -->
-    <section id="view-material" class="page">
-      <div id="material-viewer"></div>
-      <a href="#" class="btn nav-link btn-outline" data-page="materials">Kembali</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 MateriKu - Semua Hak Dilindungi</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const SUPABASE_URL = "https://flccihxefysoqfmrnqgt.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_JL5K5fbvwtBckmto_Nu_-A_9Y-AQTsb"; 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const MAX_FILE_SIZE = 10 * 1024 * 1024;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          showPage(link.dataset.page);
-          if (link.dataset.page === 'materials') loadMaterials();
-          if (link.dataset.page === 'add-material') resetForm();
-        });
-      });
-      document.getElementById('material-form').addEventListener('submit', handleForm);
-      loadMaterials();
-    });
-
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-    }
-
-    async function handleForm(e) {
-      e.preventDefault();
-      const id = document.getElementById('material-id').value;
-      const title = document.getElementById('material-title').value;
-      const content = document.getElementById('material-content').innerHTML;
-      const file = document.getElementById('material-image').files[0];
-      if (id) {
-        await updateMaterial(id, title, content, file);
-      } else {
-        await saveMaterial(title, content, file);
-      }
-    }
-
-    async function saveMaterial(title, content, file) {
-      let imageUrl = null;
-      if (file) {
-        if (file.size > MAX_FILE_SIZE) return alert("Ukuran file max 10MB!");
-        const fileName = Date.now() + "-" + file.name;
-        const { error: uploadError } = await supabase.storage.from("materi").upload(fileName, file);
-        if (uploadError) return alert("Upload gagal: " + uploadError.message);
-        imageUrl = `${SUPABASE_URL}/storage/v1/object/public/materi/${fileName}`;
-      }
-      const { error } = await supabase.from("materials").insert([{ title, content, image: imageUrl }]);
-      if (error) return alert("Gagal simpan: " + error.message);
-      alert("Materi berhasil disimpan!");
-      resetForm(); showPage("materials"); loadMaterials();
-    }
-
-    async function updateMaterial(id, title, content, file) {
-      let updateData = { title, content, updated_at: new Date().toISOString() };
-      if (file) {
-        if (file.size > MAX_FILE_SIZE) return alert("Ukuran file max 10MB!");
-        const fileName = Date.now() + "-" + file.name;
-        const { error: uploadError } = await supabase.storage.from("materi").upload(fileName, file);
-        if (uploadError) return alert("Upload gagal: " + uploadError.message);
-        updateData.image = `${SUPABASE_URL}/storage/v1/object/public/materi/${fileName}`;
-      }
-      const { error } = await supabase.from("materials").update(updateData).eq("id", id);
-      if (error) return alert("Gagal update: " + error.message);
-      alert("Materi diperbarui!");
-      resetForm(); showPage("materials"); loadMaterials();
-    }
-
-    async function deleteMaterial(id) {
-      if (!confirm("Yakin hapus materi ini?")) return;
-      const { error } = await supabase.from("materials").delete().eq("id", id);
-      if (error) return alert("Gagal hapus: " + error.message);
-      alert("Materi dihapus!");
-      loadMaterials();
-    }
-
-    async function loadMaterials() {
-      const list = document.getElementById("materials-list");
-      list.innerHTML = "";
-      const { data: materials, error } = await supabase.from("materials").select("*").order("created_at", { ascending: false });
-      if (error) return list.innerHTML = `<p style="color:red">${error.message}</p>`;
-      if (!materials.length) return list.innerHTML = `<p>Belum ada materi</p>`;
-      materials.forEach(m => {
-        const card = document.createElement("div");
-        card.className = "material-card";
-        const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
-        card.innerHTML = `
-          <div class="material-thumbnail">${m.image ? `<img src="${m.image}">` : `<i class="fas fa-file-image" style="font-size:3rem;color:#ccc;"></i>`}</div>
-          <div class="material-info">
-            <h3 class="material-title">${m.title}</h3>
-            <p class="material-date">${date}</p>
-            <div class="material-actions">
-              <button class="btn btn-edit" onclick="editMaterial(${m.id})">Edit</button>
-              <button class="btn btn-danger" onclick="deleteMaterial(${m.id})">Hapus</button>
+    <main class="container main-content">
+        <section id="home" class="page active">
+            <div class="hero-section">
+                <h1>Ayo Simpan Materinya!</h1>
+                <p style="font-size: var(--font-size-body); max-width: 600px; margin: 1rem auto;">Safety Zone dibuat untuk menyimpan, mengelola, dan mengakses semua materi pembelajaran.</p>
+                <a href="#" class="btn btn-primary nav-link" data-page="add-material"><i class="fas fa-plus-circle"></i> Tambah Materi Baru</a>
             </div>
-          </div>`;
-        card.addEventListener("click", e => { if (!e.target.closest(".material-actions")) viewMaterial(m); });
-        list.appendChild(card);
-      });
-    }
+        </section>
 
-    function viewMaterial(m) {
-      const viewer = document.getElementById("material-viewer");
-      const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
-      viewer.innerHTML = `<h2>${m.title}</h2><p>${date}</p><hr><div>${m.content}</div>${m.image?`<img src="${m.image}" style="max-width:100%;margin-top:1rem">`:""}`;
-      showPage("view-material");
-    }
+        <section id="materials" class="page">
+            <div class="materials-header">
+                <h2>Semua Materi</h2>
+                <input type="text" id="search-input" placeholder="Cari materi berdasarkan judul...">
+            </div>
+            <div class="materials-grid" id="materials-list"></div>
+            <p id="no-materials-message" style="text-align:center; color: var(--secondary-color); display: none; margin-top: 2rem;">Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!</p>
+        </section>
 
-    async function editMaterial(id) {
-      const { data, error } = await supabase.from("materials").select("*").eq("id", id).single();
-      if (error) return alert(error.message);
-      document.getElementById("material-id").value = data.id;
-      document.getElementById("material-title").value = data.title;
-      document.getElementById("material-content").innerHTML = data.content;
-      document.getElementById("form-title").textContent = "Edit Materi";
-      document.getElementById("save-button").textContent = "Perbarui Materi";
-      document.getElementById("cancel-button").style.display = "inline-block";
-      showPage("add-material");
-    }
+        <section id="add-material" class="page">
+            <h2 id="form-title">Tambah Materi Baru</h2>
+            <form id="material-form" class="card">
+                <input type="hidden" id="material-id">
+                <input type="hidden" id="material-image-url">
+                <div class="form-group">
+                    <label for="material-title">Judul Materi</label>
+                    <input type="text" id="material-title" class="form-control" placeholder="Contoh: Pengantar HTML dan CSS" required>
+                </div>
+                <div class="form-group">
+                    <label for="material-content">Isi Konten Materi</label>
+                    <div class="editor-toolbar">
+                        <button type="button" onclick="formatDoc('bold')" title="Tebal"><i class="fas fa-bold"></i></button>
+                        <button type="button" onclick="formatDoc('italic')" title="Miring"><i class="fas fa-italic"></i></button>
+                        <button type="button" onclick="formatDoc('underline')" title="Garis Bawah"><i class="fas fa-underline"></i></button>
+                        <button type="button" onclick="formatList()" title="Daftar Poin"><i class="fas fa-list-ul"></i></button>
+                        <button type="button" onclick="formatDoc('insertOrderedList')" title="Daftar Bernomor"><i class="fas fa-list-ol"></i></button>
+                    </div>
+                    <div id="material-content" class="content-editable" contenteditable="true" placeholder="Tuliskan isi materi Anda di sini..."></div>
+                </div>
+                <div class="form-group">
+                    <label for="material-image">Unggah Gambar</label>
+                    <input type="file" id="material-image" accept="image/*" class="form-control" style="padding: 10px;">
+                    <div id="image-preview" class="image-preview-container" style="display:none;">
+                        <img id="preview-image" src="" alt="Pratinjau Gambar" style="cursor: pointer;">
+                        <button type="button" class="btn btn-danger" id="delete-image-btn" style="margin-top: 10px;"><i class="fas fa-trash"></i> Hapus Gambar</button>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="save-button"><i class="fas fa-save"></i> Simpan Materi</button>
+                    <button type="button" class="btn btn-outline nav-link" data-page="materials" id="cancel-button" style="display:none;"><i class="fas fa-times"></i> Batal</button>
+                </div>
+            </form>
+        </section>
 
-    function resetForm() {
-      document.getElementById("material-form").reset();
-      document.getElementById("material-id").value = "";
-      document.getElementById("material-content").innerHTML = "";
-      document.getElementById("form-title").textContent = "Tambah Materi Baru";
-      document.getElementById("save-button").textContent = "Simpan Materi";
-      document.getElementById("cancel-button").style.display = "none";
-    }
-  </script>
+        <section id="view-material" class="page">
+            <div id="material-viewer" class="card"></div>
+            <div class="back-link">
+                <a href="#" class="btn btn-outline nav-link" data-page="materials"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Materi</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Safety Zone. Dibuat dengan ❤️ oleh Jihan.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://flccihxefysoqfmrnqgt.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_JL5K5fbvwtBckmto_Nu_-A_9Y-AQTsb";
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const MAX_FILE_SIZE = 10 * 1024 * 1024;
+        const iconList = ['✨', '💡', '📌', '🚀', '📚', '🎯'];
+
+        function showNotification(message, isError = false) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = `notification ${isError ? 'error' : ''}`;
+            notification.textContent = message;
+            container.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function formatDoc(command) {
+            document.execCommand(command, false, null);
+            document.getElementById('material-content').focus();
+        }
+
+        function formatList() {
+            document.execCommand('insertUnorderedList', false, null);
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const listNode = range.startContainer.parentElement.closest('ul');
+                if (listNode) {
+                    const listItems = listNode.querySelectorAll('li');
+                    listItems.forEach(li => {
+                        if (!li.dataset.icon) {
+                            li.dataset.icon = iconList[Math.floor(Math.random() * iconList.length)];
+                        }
+                    });
+                }
+            }
+            document.getElementById('material-content').focus();
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    showPage(pageId);
+                    if (pageId === 'materials') loadMaterials();
+                    if (pageId === 'add-material') resetForm();
+                    
+                    document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+                    link.classList.add('active');
+                });
+            });
+
+            document.getElementById('material-form').addEventListener('submit', handleForm);
+            document.getElementById('delete-image-btn').addEventListener('click', deleteImage);
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                searchMaterials(e.target.value);
+            });
+            document.getElementById('image-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'image-modal' || e.target.classList.contains('close-modal')) {
+                    document.getElementById('image-modal').style.display = 'none';
+                }
+            });
+
+            loadMaterials();
+            document.querySelector('.nav-link[data-page="home"]').classList.add('active');
+
+            // Dark Mode Toggle
+            const modeToggleBtn = document.getElementById('mode-toggle');
+            modeToggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+                modeToggleBtn.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+
+            // Set initial mode from localStorage
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'true') {
+                document.body.classList.add('dark-mode');
+                modeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        async function handleForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('material-id').value;
+            const title = document.getElementById('material-title').value;
+            const content = document.getElementById('material-content').innerHTML;
+            const file = document.getElementById('material-image').files[0];
+            const existingImageUrl = document.getElementById('material-image-url').value;
+
+            if (!title.trim() || !content.trim()) {
+                showNotification("Judul dan konten materi tidak boleh kosong.", true);
+                return;
+            }
+            
+            if (id) {
+                await updateMaterial(id, title, content, file, existingImageUrl);
+            } else {
+                await saveMaterial(title, content, file);
+            }
+        }
+
+        async function saveMaterial(title, content, file) {
+            let imageUrl = null;
+            if (file) {
+                if (file.size > MAX_FILE_SIZE) { showNotification("Ukuran file maksimal 10MB!", true); return; }
+                const fileName = `${Date.now()}-${file.name}`;
+                const { error: uploadError } = await supabase.storage.from("materi").upload(fileName, file);
+                if (uploadError) { showNotification("Upload gambar gagal: " + uploadError.message, true); return; }
+                imageUrl = `${SUPABASE_URL}/storage/v1/object/public/materi/${fileName}`;
+            }
+            const { error } = await supabase.from("materials").insert([{ title, content, image: imageUrl }]);
+            if (error) { showNotification("Gagal menyimpan materi: " + error.message, true); return; }
+            showNotification("Materi berhasil disimpan!");
+            resetForm();
+            showPage("materials");
+            loadMaterials();
+        }
+
+        async function updateMaterial(id, title, content, file, existingImageUrl) {
+            let updateData = { title, content, updated_at: new Date().toISOString() };
+            let newImageUrl = existingImageUrl;
+            if (file) {
+                if (file.size > MAX_FILE_SIZE) { showNotification("Ukuran file maksimal 10MB!", true); return; }
+                if (existingImageUrl && existingImageUrl.includes(SUPABASE_URL)) {
+                    const oldFileName = existingImageUrl.split('/').pop();
+                    const { error: deleteOldError } = await supabase.storage.from("materi").remove([oldFileName]);
+                    if (deleteOldError) showNotification("Gagal menghapus gambar lama dari storage: " + deleteOldError.message, true);
+                }
+                const newFileName = `${Date.now()}-${file.name}`;
+                const { error: uploadError } = await supabase.storage.from("materi").upload(newFileName, file);
+                if (uploadError) { showNotification("Upload gambar baru gagal: " + uploadError.message, true); return; }
+                newImageUrl = `${SUPABASE_URL}/storage/v1/object/public/materi/${newFileName}`;
+            }
+            updateData.image = newImageUrl;
+            const { error } = await supabase.from("materials").update(updateData).eq("id", id);
+            if (error) { showNotification("Gagal memperbarui materi: " + error.message, true); return; }
+            showNotification("Materi berhasil diperbarui!");
+            resetForm();
+            showPage("materials");
+            loadMaterials();
+        }
+
+        async function deleteImage() {
+            const id = document.getElementById('material-id').value;
+            const imageUrl = document.getElementById('material-image-url').value;
+            if (!imageUrl) { showNotification("Tidak ada gambar untuk dihapus.", true); return; }
+            if (!confirm("Apakah Anda yakin ingin menghapus gambar ini?")) return;
+            const fileName = imageUrl.split('/').pop();
+            const { error: storageError } = await supabase.storage.from("materi").remove([fileName]);
+            if (storageError) { showNotification("Gagal menghapus gambar dari storage: " + storageError.message, true); return; }
+            const { error: dbError } = await supabase.from("materials").update({ image: null }).eq("id", id);
+            if (dbError) { showNotification("Gagal memperbarui database: " + dbError.message, true); return; }
+            showNotification("Gambar berhasil dihapus.");
+            document.getElementById('material-image-url').value = '';
+            document.getElementById('material-image').value = '';
+            document.getElementById('image-preview').style.display = 'none';
+        }
+
+        async function deleteMaterial(id) {
+            if (!confirm("Apakah Anda yakin ingin menghapus materi ini?")) return;
+            const { data, error: fetchError } = await supabase.from("materials").select("image").eq("id", id).single();
+            if (fetchError) { showNotification("Gagal mengambil data materi: " + fetchError.message, true); return; }
+            if (data && data.image) {
+                const fileName = data.image.split('/').pop();
+                const { error: storageError } = await supabase.storage.from("materi").remove([fileName]);
+                if (storageError) { showNotification("Gagal menghapus gambar dari storage: " + storageError.message, true); }
+            }
+            const { error: dbError } = await supabase.from("materials").delete().eq("id", id);
+            if (dbError) { showNotification("Gagal menghapus materi dari database: " + dbError.message, true); return; }
+            showNotification("Materi berhasil dihapus!");
+            loadMaterials();
+        }
+
+        async function loadMaterials() {
+            const list = document.getElementById("materials-list");
+            const noMaterialsMessage = document.getElementById("no-materials-message");
+            list.innerHTML = "";
+            noMaterialsMessage.textContent = "Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!";
+            const { data: materials, error } = await supabase.from("materials").select("*").order("created_at", { ascending: false });
+            if (error) { list.innerHTML = `<p style="color:var(--accent-red); text-align:center;">Gagal memuat materi: ${error.message}</p>`; noMaterialsMessage.style.display = 'none'; return; }
+            if (!materials.length) { noMaterialsMessage.style.display = 'block'; return; } else { noMaterialsMessage.style.display = 'none'; }
+            
+            materials.forEach(m => {
+                const card = document.createElement("div");
+                card.className = "material-card";
+                const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
+                
+                let thumbnailContent = '';
+                if (m.image) {
+                    thumbnailContent = `<img src="${m.image}" alt="${m.title}">`;
+                } else if (m.title && m.title.length > 0) {
+                    thumbnailContent = `<span style="font-size: 3rem;">${m.title.charAt(0).toUpperCase()}</span>`;
+                } else {
+                    thumbnailContent = `<i class="fas fa-file-alt"></i>`;
+                }
+
+                card.innerHTML = `
+                    <div class="material-thumbnail">
+                        ${thumbnailContent}
+                    </div>
+                    <div class="material-info">
+                        <h3 class="material-title">${m.title}</h3>
+                        <p class="material-date"><small>Ditambahkan pada: ${date}</small></p>
+                        <div class="material-actions">
+                            <button class="btn btn-edit" onclick="event.stopPropagation(); editMaterial(${m.id})"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn btn-danger" onclick="event.stopPropagation(); deleteMaterial(${m.id})"><i class="fas fa-trash"></i> Hapus</button>
+                        </div>
+                    </div>`;
+                card.addEventListener("click", e => { if (!e.target.closest(".material-actions button")) viewMaterial(m); });
+                list.appendChild(card);
+            });
+        }
+
+        function searchMaterials(query) {
+            const cards = document.querySelectorAll('.material-card');
+            const lowerCaseQuery = query.toLowerCase();
+            let found = false;
+            cards.forEach(card => {
+                const title = card.querySelector('.material-title').textContent.toLowerCase();
+                if (title.includes(lowerCaseQuery)) {
+                    card.style.display = 'flex';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            const noMaterialsMessage = document.getElementById("no-materials-message");
+            if (!found) {
+                noMaterialsMessage.style.display = 'block';
+                noMaterialsMessage.textContent = query.trim() === '' ? 'Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!' : 'Tidak ada materi yang cocok dengan pencarian Anda.';
+            } else {
+                noMaterialsMessage.style.display = 'none';
+            }
+        }
+
+        function showImageModal(imageUrl) {
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = imageUrl;
+            modal.style.display = 'block';
+        }
+
+        function viewMaterial(m) {
+            const viewer = document.getElementById("material-viewer");
+            const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = m.content;
+            const listItems = tempDiv.querySelectorAll('ul li');
+            listItems.forEach(li => {
+                const icon = li.getAttribute('data-icon');
+                if (icon) {
+                    li.innerHTML = `<span style="margin-right:0.5em;" class="list-icon">${icon}</span>` + li.innerHTML;
+                }
+            });
+
+            const contentHTML = tempDiv.innerHTML;
+            viewer.innerHTML = `
+                <h2>${m.title}</h2>
+                <p class="material-date"><small>Ditambahkan pada: ${date}</small></p>
+                <hr style="border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+                ${m.image ? `<img src="${m.image}" alt="${m.title}" style="max-width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;box-shadow:var(--shadow);border:1px solid var(--border-color);" class="zoomable-image">` : ""}
+                <div id="material-content-viewer" style="line-height: 1.6; font-size: var(--font-size-body);">${contentHTML}</div>`;
+            
+            const images = viewer.querySelectorAll('img');
+            images.forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', () => showImageModal(img.src));
+            });
+
+            const listIconsInViewer = viewer.querySelectorAll('.list-icon');
+            if (document.body.classList.contains('dark-mode')) {
+                listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--dark-primary-color)');
+            } else {
+                listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--primary-color)');
+            }
+
+
+            showPage("view-material");
+        }
+
+        async function editMaterial(id) {
+            const { data, error } = await supabase.from("materials").select("*").eq("id", id).single();
+            if (error) { showNotification("Gagal memuat data materi: " + error.message, true); return; }
+            document.getElementById("material-id").value = data.id;
+            document.getElementById("material-title").value = data.title;
+            document.getElementById("material-content").innerHTML = data.content;
+            document.getElementById("material-image-url").value = data.image || '';
+            const imagePreview = document.getElementById('image-preview');
+            const previewImage = document.getElementById('preview-image');
+            if (data.image) {
+                previewImage.src = data.image;
+                imagePreview.style.display = 'block';
+            } else {
+                imagePreview.style.display = 'none';
+                previewImage.src = '';
+            }
+            document.getElementById("form-title").textContent = "Edit Materi";
+            document.getElementById("save-button").innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui Materi';
+            document.getElementById("cancel-button").style.display = "inline-block";
+            showPage("add-material");
+        }
+
+        function resetForm() {
+            document.getElementById("material-form").reset();
+            document.getElementById("material-id").value = "";
+            document.getElementById("material-image-url").value = "";
+            document.getElementById("material-content").innerHTML = "";
+            document.getElementById("form-title").textContent = "Tambah Materi Baru";
+            document.getElementById("save-button").innerHTML = '<i class="fas fa-save"></i> Simpan Materi';
+            document.getElementById("cancel-button").style.display = "none";
+            document.getElementById('image-preview').style.display = 'none';
+            document.getElementById('preview-image').src = '';
+            document.getElementById('material-image').value = '';
+        }
+    </script>
 </body>
 </html>
