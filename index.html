@@ -375,7 +375,11 @@
         }
         #search-input:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.1); }
         
-        .materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .materials-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
         .material-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -494,28 +498,18 @@
             color: var(--dark-secondary-color);
         }
 
-        /* Responsive - Umum untuk Layar Kecil (Tablet & Mobile) */
+        /* PERBAIKAN UTAMA: Penyesuaian Media Query untuk Mobile */
         @media (max-width: 768px) {
             .container { padding: 0 0.8rem; }
             
-            /* HEADER & NAVIGASI */
-            .header-content {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 1rem 0;
-            }
+            /* HEADER & NAVIGASI: Dibuat lebih ramping */
+            .header-content { flex-direction: column; align-items: center; gap: 0.5rem; }
             .logo { font-size: 1.6rem; margin-bottom: 0.5rem; }
             nav { width: 100%; order: 1; margin-bottom: 0.5rem; }
-            nav ul {
-                justify-content: space-around;
-                width: 100%;
-                flex-wrap: nowrap;
-                padding: 0 0.5rem;
-            }
+            nav ul { justify-content: space-around; width: 100%; flex-wrap: nowrap; padding: 0 0.5rem; }
             nav ul li { margin: 0 0.4rem; }
             nav ul li a { 
-                font-size: clamp(0.75rem, 3vw, 0.9rem); /* Menyesuaikan ukuran font nav */
+                font-size: clamp(0.75rem, 3vw, 0.9rem); 
                 padding: 0.5rem 0; 
             }
             #mode-toggle { 
@@ -528,39 +522,41 @@
                 height: 36px;
             }
 
-            /* HERO SECTION */
-            .hero-section {
-                padding: 3rem 1rem;
-                margin-bottom: 1.5rem;
-            }
+            /* HERO SECTION: Ruang Vertikal lebih hemat */
+            .hero-section { padding: 3rem 1rem; margin-bottom: 1.5rem; }
             .hero-section h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
             .hero-section p { font-size: clamp(0.85rem, 3vw, 1rem); }
             .hero-section .btn { font-size: clamp(0.9rem, 3vw, 1rem); }
 
-            /* MATERI & KARTU */
+            /* MATERI & KARTU: Solusi Font Terpotong & Tata Letak Tombol */
             .materials-header { flex-direction: column; align-items: flex-start; }
             #search-input { max-width: 100%; margin-top: 0.5rem; }
-            .materials-grid { grid-template-columns: 1fr; gap: 1.5rem; } /* Satu kolom di layar kecil */
+            .materials-grid { 
+                grid-template-columns: 1fr; /* Pastikan hanya 1 kolom untuk mobile */
+                gap: 1.5rem; 
+            }
             .material-card {
                 margin: 0 auto;
                 max-width: none;
                 width: 100%;
-                flex-direction: column; /* Tata letak vertikal untuk mobile */
+                flex-direction: column;
             }
             .material-info { padding: 1rem; }
             .material-title { 
-                font-size: clamp(1rem, 4vw, 1.3rem); /* Ukuran font judul yang responsif */
-                white-space: nowrap; /* Mencegah judul pindah baris */
-                overflow: hidden; /* Sembunyikan jika terlalu panjang */
-                text-overflow: ellipsis; /* Tampilkan ... jika terpotong */
+                font-size: clamp(1rem, 4vw, 1.3rem); 
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis; 
             }
             .material-actions {
-                flex-direction: column; /* Tombol aksi vertikal di layar kecil */
+                display: flex; /* Menggunakan flexbox untuk tombol */
+                justify-content: center;
                 gap: 0.5rem;
                 margin-top: 1rem;
             }
             .material-actions .btn {
-                width: 100%;
+                width: auto; /* Tombol menyesuaikan konten */
+                flex-grow: 1; /* Biarkan tombol tumbuh mengisi ruang */
                 padding: 10px 15px;
                 font-size: clamp(0.8rem, 3vw, 1rem);
             }
@@ -577,7 +573,7 @@
             .content-editable {
                 min-height: 200px;
                 padding: 12px;
-                font-size: clamp(0.9rem, 3vw, 1.1rem); /* Ukuran font konten yang responsif */
+                font-size: clamp(0.9rem, 3vw, 1.1rem); 
             }
 
             /* VIEW MATERI */
@@ -591,7 +587,7 @@
             footer { padding: 1.25rem; font-size: clamp(0.7rem, 2.5vw, 0.8rem); }
         }
 
-        /* Penyesuaian Tambahan untuk Layar Sangat Kecil (di bawah 480px) */
+        /* Penyesuaian untuk Layar Sangat Kecil (di bawah 480px) */
         @media (max-width: 480px) {
             .container { padding: 0 0.5rem; }
             .logo { font-size: 1.4rem; }
@@ -600,16 +596,22 @@
             .hero-section { padding: 2.5rem 0.8rem; }
             .card { padding: 1.2rem; }
             .material-actions {
-                flex-direction: column;
+                flex-direction: column; /* Tombol aksi tumpuk vertikal untuk layar sangat kecil */
                 gap: 0.5rem;
             }
             .material-actions .btn {
-                width: 100%;
+                width: 100%; /* Tombol memenuhi lebar penuh */
             }
             .editor-toolbar button {
                 width: 30px;
                 height: 30px;
                 font-size: 0.9rem;
+            }
+            .material-viewer h2 {
+                word-wrap: break-word; /* Memastikan judul tidak memanjang di luar layar */
+            }
+            .material-viewer .material-date {
+                white-space: normal; /* Pastikan tanggal tidak terpotong */
             }
         }
     </style>
