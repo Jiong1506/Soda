@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MateriKu - Penyimpanan Materi Pribadi</title>
+    <title>Safety Zone - Penyimpanan Materi Pribadi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* === Variabel & Reset Dasar === */
         :root {
-            --primary-color: #5d5dff;
-            --secondary-color: #a4a4ff;
-            --text-color: #333;
-            --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --accent-green: #2ecc71;
-            --accent-red: #e74c3c;
-            --border-color: #e0e6f0;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            /* Dark Mode - Warna Gelap Modern */
+            --primary: #8A4FFF;
+            --primary-light: #9D6AFF;
+            --primary-dark: #7A3AED;
+            --secondary: #00D4FF;
+            --accent: #FF6B9D;
+            --success: #00E6A1;
+            --warning: #FFC145;
+            --error: #FF4D6D;
             
-            /* Dark Mode Variables */
-            --dark-primary-color: #9292ff;
-            --dark-secondary-color: #c0c0ff;
-            --dark-text-color: #e0e0e0;
-            --dark-bg-color: #1a1a2e;
-            --dark-card-bg: #282a40;
-            --dark-border-color: #444a66;
-            --dark-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
-            --dark-editor-toolbar-bg: #32354a;
-
-            /* Font Sizes Adjusted with clamp() */
+            --text-primary: #F0F2FF;
+            --text-secondary: #A8B1FF;
+            --text-muted: #7E88AA;
+            
+            --bg-primary: #0F0F23;
+            --bg-secondary: #1A1A2E;
+            --bg-card: #252545;
+            --bg-surface: #2D2B55;
+            
+            --border: #3A3A6E;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --glow: 0 0 20px rgba(138, 79, 255, 0.3);
+            
+            /* Font Sizes */
             --font-size-h1: clamp(2.2rem, 5vw, 3.2rem);
             --font-size-h2: clamp(1.8rem, 4vw, 2.5rem);
             --font-size-h3: clamp(1.1rem, 2.5vw, 1.3rem);
@@ -39,251 +42,94 @@
             --font-size-small: clamp(0.75rem, 1.5vw, 0.9rem);
         }
 
-        body {
-            font-family: 'Roboto', sans-serif;
+        * {
             margin: 0;
-            background: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden; /* Mencegah scroll horizontal */
-        }
-        
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background: var(--dark-bg-color);
-            color: var(--dark-text-color);
-        }
-        body.dark-mode header,
-        body.dark-mode footer,
-        body.dark-mode .card,
-        body.dark-mode #search-input {
-            background: var(--dark-card-bg);
-            color: var(--dark-text-color);
-            border-color: var(--dark-border-color);
-            box-shadow: var(--dark-shadow);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        body.dark-mode .hero-section {
-            background: linear-gradient(135deg, var(--dark-bg-color), var(--dark-card-bg));
-            box-shadow: var(--dark-shadow);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-        body.dark-mode .logo,
-        body.dark-mode h1,
-        body.dark-mode h2,
-        body.dark-mode h3 {
-            color: var(--dark-text-color);
-            transition: color 0.3s ease;
-        }
-        body.dark-mode .logo .icon {
-            color: var(--dark-primary-color);
-            transition: color 0.3s ease;
-        }
-        body.dark-mode nav ul li a {
-            color: var(--dark-text-color);
-            transition: color 0.3s ease;
-        }
-        body.dark-mode nav ul li a::after {
-            background: var(--dark-primary-color);
-            transition: background 0.3s ease;
-        }
-        body.dark-mode nav ul li a:hover,
-        body.dark-mode nav ul li a.active {
-            color: var(--dark-primary-color);
-        }
-
-        body.dark-mode #search-input {
-            color: var(--dark-text-color);
-            border-color: var(--dark-border-color);
-        }
-        body.dark-mode #search-input::placeholder {
-            color: rgba(224, 224, 224, 0.6);
-        }
-        body.dark-mode #search-input:focus {
-            border-color: var(--dark-primary-color);
-            box-shadow: 0 0 0 3px rgba(146, 146, 255, 0.15);
-        }
-        
-        body.dark-mode .form-control {
-            background: var(--dark-card-bg);
-            color: var(--dark-text-color);
-            border-color: var(--dark-border-color);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        body.dark-mode .form-control:focus {
-            border-color: var(--dark-primary-color);
-            box-shadow: 0 0 0 3px rgba(146, 146, 255, 0.15);
-        }
-        body.dark-mode .editor-toolbar {
-            background-color: var(--dark-editor-toolbar-bg);
-            border-color: var(--dark-border-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        body.dark-mode .editor-toolbar button {
-            color: var(--dark-text-color);
-            transition: color 0.3s ease;
-        }
-        body.dark-mode .editor-toolbar button:hover {
-            background-color: var(--dark-border-color);
-        }
-        body.dark-mode .content-editable {
-            background: var(--dark-card-bg);
-            border-color: var(--dark-border-color);
-            color: var(--dark-text-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-        }
-        body.dark-mode [contenteditable="true"]:empty:before {
-            content: attr(placeholder);
-            color: rgba(224, 224, 224, 0.6);
-            pointer-events: none;
-            display: block;
-            transition: color 0.3s ease;
-        }
-        body.dark-mode .material-date,
-        body.dark-mode #no-materials-message {
-            color: var(--dark-secondary-color);
-            transition: color 0.3s ease;
-        }
-        
-        body.dark-mode .material-card {
-            background: var(--dark-card-bg);
-            border-color: var(--dark-border-color);
-            box-shadow: var(--dark-shadow);
-            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        body.dark-mode .material-card:hover {
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
-        }
-        body.dark-mode .material-card .material-title {
-            color: var(--dark-text-color);
-            transition: color 0.3s ease;
-        }
-        body.dark-mode .material-card .material-date {
-            color: var(--dark-secondary-color);
-            transition: color 0.3s ease;
-        }
-
-        body.dark-mode .material-thumbnail {
-            background: var(--dark-editor-toolbar-bg);
-            transition: background 0.3s ease;
-            color: var(--dark-text-color); 
-            font-size: 3rem; 
-            font-weight: bold;
-        }
-        body.dark-mode .material-thumbnail i {
-            color: var(--dark-secondary-color);
-            opacity: 0.6;
-            font-size: 3rem;
-        }
-        body.dark-mode .material-thumbnail p {
-            color: var(--dark-text-color);
-        }
-
-        body.dark-mode hr {
-            border-top: 1px solid var(--dark-border-color);
-            transition: border-color 0.3s ease;
-        }
-        body.dark-mode .modal {
-            background-color: rgba(0, 0, 0, 0.95);
-        }
-        body.dark-mode .close-modal {
-            color: #d0d0d0;
-        }
-        body.dark-mode .close-modal:hover {
-            color: #f1f1f1;
-        }
-        body.dark-mode .btn-outline {
-            color: var(--dark-primary-color);
-            border-color: var(--dark-primary-color);
-        }
-        body.dark-mode .btn-outline:hover {
-            background: var(--dark-primary-color);
-            color: var(--dark-text-color);
-        }
-        body.dark-mode label {
-            color: var(--dark-text-color);
-        }
-
-        /* Mode Toggle Button */
-        #mode-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-        #mode-toggle:hover {
-            color: var(--primary-color);
-            background-color: rgba(0,0,0,0.05);
-        }
-        body.dark-mode #mode-toggle {
-            color: var(--dark-text-color);
-        }
-        body.dark-mode #mode-toggle:hover {
-            color: var(--dark-primary-color);
-            background-color: rgba(255,255,255,0.1);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 1rem;
-        }
-        
-        /* Pastikan semua elemen tidak melampaui lebar layar */
-        *, *::before, *::after {
+            padding: 0;
             box-sizing: border-box;
         }
 
-        img, video, iframe, embed, object {
-            max-width: 100%;
-            height: auto;
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 79, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.03) 0%, transparent 30%);
         }
-        
-        /* Notifikasi */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--accent-green);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
-            min-width: 250px;
-            text-align: center;
-        }
-        .notification.error { background-color: var(--accent-red); }
-        @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
 
-        /* Typography */
-        h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0 0 1rem; }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
         h1 { font-size: var(--font-size-h1); }
         h2 { font-size: var(--font-size-h2); }
         h3 { font-size: var(--font-size-h3); }
-        p { font-size: var(--font-size-body); word-break: break-word; }
+        p { font-size: var(--font-size-body); }
         small { font-size: var(--font-size-small); }
 
-        /* Header & Navigasi */
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: var(--shadow); }
+            50% { box-shadow: 0 0 25px rgba(138, 79, 255, 0.5); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        .pulse { animation: pulse 2s infinite; }
+        .float { animation: float 3s ease-in-out infinite; }
+        .glow { animation: glow 3s ease-in-out infinite; }
+        .zoom-in { animation: zoomIn 0.3s ease-out; }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
         header {
-            background: var(--card-bg);
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
+
         .header-content {
             display: flex;
             justify-content: space-between;
@@ -291,80 +137,194 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; }
-        .logo .icon { margin-right: 10px; font-size: 2rem; }
-        nav { flex-grow: 1; text-align: center; }
-        nav ul { display: flex; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center; }
-        nav ul li { margin-left: 1.5rem; }
-        nav ul li a { 
-            color: var(--text-color); 
-            text-decoration: none; 
-            font-weight: 500; 
-            position: relative; 
-            padding: 0.5rem 0; 
-            transition: color 0.3s ease; 
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
         }
-        nav ul li a::after {
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+            background: rgba(138, 79, 255, 0.1);
+        }
+
+        nav a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 50%;
             width: 0;
-            height: 3px;
-            background: var(--primary-color);
-            transition: width 0.3s ease, left 0.3s ease;
-        }
-        nav ul li a:hover, nav ul li a.active { color: var(--primary-color); }
-        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; left: 0; }
-
-        /* Tombol & Card */
-        .btn {
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             transition: all 0.3s ease;
-            text-align: center;
+            transform: translateX(-50%);
+        }
+
+        nav a.active::after {
+            width: 80%;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0 4rem;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Buttons */
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            word-break: break-word; 
-            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
         }
-        .btn i { margin-right: 8px; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .btn-primary { background: var(--primary-color); color: #fff; }
-        .btn-outline { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); }
-        .btn-outline:hover { background: var(--primary-color); color: #fff; }
-        .btn-edit { background-color: #ffc107; color: #333; }
-        .btn-edit:hover { background-color: #e0a800; }
-        .btn-danger { background-color: var(--accent-red); color: #fff; }
-        .btn-danger:hover { background-color: #c82333; }
-        
-        .card { background: var(--card-bg); border-radius: 12px; box-shadow: var(--shadow); padding: 2rem; transition: background-color 0.3s ease, box-shadow 0.3s ease; }
 
-        /* Konten Utama */
-        .main-content { padding: 2rem 0 4rem; }
-        .page { display: none; animation: fadeIn 0.6s ease-out; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .btn-secondary {
+            background: rgba(138, 79, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(138, 79, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-edit {
+            background: rgba(255, 193, 69, 0.1);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .btn-edit:hover {
+            background: rgba(255, 193, 69, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: rgba(255, 77, 109, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 77, 109, 0.2);
+            transform: translateY(-2px);
+        }
 
         /* Hero Section */
         .hero-section {
             text-align: center;
-            padding: 4rem 0;
-            background: linear-gradient(135deg, var(--bg-color), #e9ecef);
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
         }
-        .hero-section h1 { font-size: var(--font-size-h1); }
-        .hero-section p { font-size: var(--font-size-body); max-width: 600px; margin: 1rem auto; word-break: break-word; }
 
-        /* Materials Page */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 79, 255, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h1 {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        /* Materials Grid */
         .materials-header {
             display: flex;
             justify-content: space-between;
@@ -373,731 +333,1465 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        #search-input {
-            width: 100%;
+
+        .search-box {
+            position: relative;
             max-width: 300px;
-            padding: 10px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
-            background: var(--card-bg);
-            color: var(--text-color);
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
             transition: all 0.3s ease;
         }
-        #search-input:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.1); }
-        
-        .materials-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 20px; 
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 79, 255, 0.2);
         }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
         .material-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            height: 100%;
             cursor: pointer;
         }
-        .material-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12); }
-        .material-thumbnail { 
-            height: 180px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            overflow: hidden; 
-            background: #e9ecef;
-            transition: background 0.3s ease;
-        }
-        .material-thumbnail img { max-width: 100%; height: auto; object-fit: cover; }
-        .material-thumbnail i { color: var(--secondary-color); opacity: 0.6; font-size: 3rem; }
-        .material-info { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .material-title { font-size: var(--font-size-h3); font-weight: 600; margin: 0 0 0.5rem; word-break: break-word; }
-        .material-date { font-size: var(--font-size-small); color: var(--secondary-color); }
-        .material-actions { display: flex; gap: 10px; margin-top: 1.25rem; flex-wrap: wrap; }
 
-        /* Form & Editor */
-        #material-form { max-width: 700px; margin: auto; padding: 2.5rem; }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-color); }
-        .form-control { 
-            width: 100%; 
-            padding: 12px 15px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 8px; 
-            background: var(--card-bg); 
-            color: var(--text-color); 
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; 
-            font-size: var(--font-size-body);
-            word-break: break-word;
-        }
-        .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(93, 93, 255, 0.1); }
-
-        .editor-toolbar { background-color: #f1f3f5; border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; display: flex; gap: 5px; padding: 8px; flex-wrap: wrap; }
-        .editor-toolbar button { background: none; border: none; cursor: pointer; font-size: 1.1rem; width: 36px; height: 36px; border-radius: 5px; transition: background-color 0.2s ease, color 0.2s ease; color: var(--text-color); }
-        .editor-toolbar button:hover { background-color: var(--border-color); }
-        .content-editable { 
-            min-height: 250px; 
-            background: var(--card-bg); 
-            padding: 15px; 
-            border-radius: 0 0 8px 8px; 
-            font-family: 'Roboto', sans-serif; 
-            border: 1px solid var(--border-color); 
-            border-top: none; 
-            outline: none; 
-            line-height: 1.6; 
-            font-size: var(--font-size-body); 
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; 
-            word-break: break-word;
-        }
-        [contenteditable="true"]:empty:before { content: attr(placeholder); color: var(--text-color); opacity: 0.7; pointer-events: none; display: block; transition: color 0.3s ease; }
-        .content-editable ul { list-style: none; padding-left: 1.5em; }
-        .content-editable ul li::before { content: attr(data-icon); margin-right: 0.5em; }
-        .content-editable ul li span {
-            color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-        body.dark-mode .content-editable ul li span {
-            color: var(--dark-primary-color);
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
         }
 
-        .image-preview-container { text-align: center; margin-top: 1.5rem; }
-        .image-preview-container img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
+        .material-thumbnail {
+            height: 160px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-surface));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-        .form-actions { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+        .material-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(138, 79, 255, 0.1), rgba(0, 212, 255, 0.1));
+        }
+
+        .material-thumbnail i {
+            font-size: 3rem;
+            color: var(--primary);
+            z-index: 1;
+        }
+
+        .material-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .material-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .material-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .material-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: auto;
+        }
+
+        .material-actions .btn {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 79, 255, 0.2);
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px 10px 0 0;
+            border-bottom: none;
+            flex-wrap: wrap;
+        }
+
+        .editor-toolbar button {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .editor-toolbar button:hover {
+            background: rgba(138, 79, 255, 0.1);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .content-editable {
+            min-height: 200px;
+            padding: 1rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 0 0 10px 10px;
+            color: var(--text-primary);
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .content-editable:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 79, 255, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
 
         /* View Material Page */
-        .material-viewer { padding: 2.5rem; }
-        .material-viewer h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; word-break: break-word; }
-        .material-viewer .material-date { font-size: var(--font-size-small); color: var(--secondary-color); margin-bottom: 2rem; display: block; }
-        .material-viewer img { max-width: 100%; height: auto; border-radius: 12px; margin-top: 2rem; box-shadow: var(--shadow); border: 1px solid var(--border-color); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease; }
-        .material-viewer img:hover { transform: scale(1.02); }
-        .material-viewer p { font-size: var(--font-size-body); line-height: 1.6; word-break: break-word; }
-        .material-viewer .content-editable { font-size: var(--font-size-body); word-break: break-word; }
-        .back-link { margin-top: 2rem; text-align: center; }
+        .material-view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-        /* Modal / Pop-up Gambar (untuk View Page) */
+        .material-view-title {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .material-view-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .material-view-content {
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .material-view-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .material-view-content img:hover {
+            transform: scale(1.02);
+        }
+
+        .material-view-content h1, 
+        .material-view-content h2, 
+        .material-view-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .material-view-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .material-view-content ul, 
+        .material-view-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .material-view-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .material-view-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .material-view-content code {
+            background: var(--bg-surface);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .material-view-content pre {
+            background: var(--bg-surface);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .material-view-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            z-index: 200;
-            padding-top: 60px;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.9);
-            animation: fadeInModal 0.3s;
+            background: rgba(15, 15, 35, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+            padding: 1rem;
         }
+
+        .modal.active {
+            display: flex;
+        }
+
         .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            animation-name: zoom;
-            animation-duration: 0.6s;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            animation: slideIn 0.3s ease;
+            position: relative;
         }
-        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes zoom { from { transform: scale(0.1); } to { transform: scale(1); } }
+
+        .modal-large {
+            max-width: 90%;
+            width: auto;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .modal-icon.warning {
+            background: rgba(255, 193, 69, 0.2);
+            color: var(--warning);
+        }
+
+        .modal-icon.danger {
+            background: rgba(255, 77, 109, 0.2);
+            color: var(--error);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+
+        .modal-body p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .code-input {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .code-input input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--bg-surface);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .code-input input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(138, 79, 255, 0.2);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
         }
-        .close-modal:hover, .close-modal:focus { color: #bbb; text-decoration: none; }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        /* Image Zoom Modal */
+        .zoom-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        .zoom-modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(26, 26, 46, 0.8);
+            padding: 0.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .zoom-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .zoom-controls button:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+
+        /* Edit Material Indicator */
+        .edit-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 193, 69, 0.2);
+            color: var(--warning);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 1001;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--success), #00C490);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--error), #FF2E4C);
+        }
+
+        .notification i {
+            font-size: 1.2rem;
+        }
 
         /* Footer */
         footer {
-            background: var(--card-bg);
-            color: var(--text-color);
-            padding: 1.5rem;
+            background: var(--bg-secondary);
+            padding: 2rem 0;
             text-align: center;
-            border-top: 1px solid var(--border-color);
-            font-size: var(--font-size-small);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        footer p { margin: 0; }
-        body.dark-mode footer {
-            color: var(--dark-secondary-color);
+            border-top: 1px solid var(--border);
         }
 
-        /* PERBAIKAN UTAMA: Penyesuaian Media Query untuk Handphone */
-        @media screen and (max-width: 480px) {
-            /* Kontainer: Padding diatur lebih kecil */
-            .container {
-                padding: 0 0.5rem;
-            }
+        footer p {
+            color: var(--text-muted);
+        }
 
-            /* Header: Navigasi ditumpuk vertikal & diatur ulang */
+        /* Responsive */
+        @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
+                align-items: flex-start;
             }
-            .logo {
-                font-size: 1.4rem;
-            }
-            .logo .icon {
-                font-size: 1.6rem;
-            }
-            nav {
-                width: 100%;
-                order: 1; /* Pindah posisi navigasi di bawah logo */
-            }
+            
             nav ul {
-                flex-direction: column; /* Ditumpuk vertikal */
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                padding: 0;
-            }
-            nav ul li {
-                margin: 0.5rem 0; /* Jarak vertikal antar menu */
-            }
-            nav ul li a {
-                font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-                padding: 0.5rem 0;
-            }
-            #mode-toggle {
-                order: 2;
-                position: absolute;
-                top: 0.8rem;
-                right: 0.5rem;
-                font-size: 1.3rem;
-                width: 36px;
-                height: 36px;
+                flex-wrap: wrap;
+                gap: 0.8rem;
             }
             
-            /* Konten Utama & Tombol: Memenuhi lebar layar */
-            .main-content, .card {
-                padding: 1rem;
-            }
-            .btn {
-                width: 100%;
-                padding: 10px 15px;
-                font-size: clamp(0.9rem, 4vw, 1rem);
-            }
-            .form-actions {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            
-            /* Materials Page: Tata letak kartu jadi satu kolom */
             .materials-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.5rem;
             }
-            #search-input {
+            
+            .search-box {
                 max-width: 100%;
-                margin-top: 0.5rem;
-                padding: 8px 12px;
-                font-size: 0.9rem;
             }
+            
             .materials-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
             }
-            .material-card {
+            
+            .form-actions, .modal-actions {
                 flex-direction: column;
-                max-width: 100%;
             }
-            .material-info {
-                padding: 0.8rem;
+            
+            .hero-section {
+                padding: 2rem 1rem;
             }
-            .material-title {
-                font-size: clamp(1rem, 4vw, 1.2rem);
-            }
-            .material-actions {
+            
+            .material-view-header {
                 flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 0.75rem;
             }
-            .material-actions .btn {
+            
+            .material-view-actions {
                 width: 100%;
-                padding: 8px 12px;
-                font-size: 0.9rem;
+                justify-content: center;
             }
-
-            /* Formulir & Editor: Penyesuaian padding dan ukuran */
-            #material-form {
-                padding: 1rem;
-            }
-            .form-control, .content-editable {
-                padding: 10px;
-                font-size: 0.9rem;
-            }
-            .editor-toolbar {
-                padding: 5px;
-                flex-wrap: wrap; 
-            }
-            .editor-toolbar button {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-
-            /* View Material: Disesuaikan untuk keterbacaan di layar kecil */
-            .material-viewer {
+            
+            .modal-content {
                 padding: 1.5rem;
             }
-            .material-viewer h2 {
-                font-size: clamp(1.5rem, 5vw, 2rem);
+            
+            .code-input input {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
-            .material-viewer .material-date {
-                font-size: 0.8rem;
+            
+            .zoom-modal-content {
+                max-width: 95%;
+                max-height: 95%;
             }
-            .material-viewer #material-content-viewer {
-                font-size: 0.9rem;
+            
+            .zoom-controls {
+                bottom: 0.5rem;
+            }
+            
+            .zoom-controls button {
+                width: 35px;
+                height: 35px;
             }
         }
 
-        /* Media query untuk layar desktop yang lebih besar */
-        @media (min-width: 481px) {
-            .header-content {
-                flex-direction: row;
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
             }
-            nav ul {
-                flex-direction: row;
+            
+            .card {
+                padding: 1.5rem;
             }
+            
             .material-actions {
-                flex-direction: row;
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .code-input input {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Notification Container -->
     <div id="notification-container"></div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="modal-title">Hapus Materi</h3>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus materi ini? Tindakan ini tidak dapat dibatalkan.</p>
+                <p>Masukkan kode <strong>1506</strong> untuk mengonfirmasi penghapusan:</p>
+                <div class="code-input">
+                    <input type="text" maxlength="1" id="code-1">
+                    <input type="text" maxlength="1" id="code-2">
+                    <input type="text" maxlength="1" id="code-3">
+                    <input type="text" maxlength="1" id="code-4">
+                </div>
+                <p id="code-error" style="color: var(--error); display: none; text-align: center;">
+                    <i class="fas fa-times-circle"></i> Kode yang dimasukkan salah!
+                </p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancel-delete">Batal</button>
+                <button class="btn btn-danger" id="confirm-delete" disabled>Hapus Materi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div id="image-zoom-modal" class="modal">
+        <div class="modal-large">
+            <button class="close-modal">&times;</button>
+            <div class="zoom-modal-content">
+                <img id="zoomed-image" src="" alt="Gambar yang diperbesar">
+            </div>
+            <div class="zoom-controls">
+                <button id="zoom-in"><i class="fas fa-search-plus"></i></button>
+                <button id="zoom-out"><i class="fas fa-search-minus"></i></button>
+                <button id="zoom-reset"><i class="fas fa-sync-alt"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
     <header>
         <div class="container header-content">
-            <div class="logo"><span class="icon">🐱</span> Safety Zone</div>
+            <a href="#" class="logo nav-link" data-page="home">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                Safety Zone
+            </a>
             <nav>
                 <ul>
-                    <li><a href="#" class="nav-link active" data-page="home">Beranda</a></li>
-                    <li><a href="#" class="nav-link" data-page="materials">Materi Saya</a></li>
-                    <li><a href="#" class="nav-link" data-page="add-material">Tambah Materi</a></li>
+                    <li><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#" class="nav-link" data-page="materials"><i class="fas fa-book"></i> Materi Saya</a></li>
+                    <li><a href="#" class="nav-link" data-page="add-material"><i class="fas fa-plus-circle"></i> Tambah Materi</a></li>
                 </ul>
             </nav>
-            <button id="mode-toggle"><i class="fas fa-moon"></i></button>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="container main-content">
+        <!-- Home Page (Menampilkan Semua Materi) -->
         <section id="home" class="page active">
-            <div class="hero-section">
-                <h1>Ayo Simpan Materinya!</h1>
-                <p>Safety Zone dibuat untuk menyimpan, mengelola, dan mengakses semua materi pembelajaran.</p>
-                <a href="#" class="btn btn-primary nav-link" data-page="add-material"><i class="fas fa-plus-circle"></i> Tambah Materi Baru</a>
+            <div class="hero-section fade-in">
+                <div class="hero-content">
+                    <h1>Selamat Datang di Safety Zone</h1>
+                    <p>Simpan dan kelola semua materi pembelajaran Anda dengan aman dan mudah</p>
+                    <a href="#" class="btn btn-primary nav-link" data-page="add-material" style="margin-top: 1.5rem;">
+                        <i class="fas fa-plus-circle"></i> Tambah Materi Baru
+                    </a>
+                </div>
             </div>
+            
+            <div class="materials-header">
+                <h2><i class="fas fa-book-open"></i> Semua Materi</h2>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input-home" placeholder="Cari materi...">
+                </div>
+            </div>
+            <div class="materials-grid" id="materials-list-home"></div>
+            <p id="no-materials-message-home" style="text-align:center; color: var(--text-muted); display: none; margin-top: 2rem; padding: 2rem;">
+                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!
+            </p>
         </section>
 
+        <!-- Materials Page (Hanya untuk Edit/Hapus) -->
         <section id="materials" class="page">
             <div class="materials-header">
-                <h2>Semua Materi</h2>
-                <input type="text" id="search-input" placeholder="Cari materi berdasarkan judul...">
+                <h2><i class="fas fa-edit"></i> Kelola Materi</h2>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input-materials" placeholder="Cari materi...">
+                </div>
             </div>
-            <div class="materials-grid" id="materials-list"></div>
-            <p id="no-materials-message" style="text-align:center; color: var(--secondary-color); display: none; margin-top: 2rem;">Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!</p>
+            <div class="materials-grid" id="materials-list-materials"></div>
+            <p id="no-materials-message-materials" style="text-align:center; color: var(--text-muted); display: none; margin-top: 2rem; padding: 2rem;">
+                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!
+            </p>
         </section>
 
+        <!-- Add/Edit Material Page -->
         <section id="add-material" class="page">
-            <h2 id="form-title">Tambah Materi Baru</h2>
+            <div id="edit-indicator" class="edit-indicator" style="display: none;">
+                <i class="fas fa-edit"></i> Sedang mengedit materi
+            </div>
+            <h2 id="form-title"><i class="fas fa-plus-circle"></i> Tambah Materi Baru</h2>
             <form id="material-form" class="card">
                 <input type="hidden" id="material-id">
                 <input type="hidden" id="material-image-url">
+                
                 <div class="form-group">
-                    <label for="material-title">Judul Materi</label>
-                    <input type="text" id="material-title" class="form-control" placeholder="Contoh: Pengantar HTML dan CSS" required>
+                    <label for="material-title" class="form-label">Judul Materi</label>
+                    <input type="text" id="material-title" class="form-control" placeholder="Masukkan judul materi" required>
                 </div>
+                
                 <div class="form-group">
-                    <label for="material-content">Isi Konten Materi</label>
+                    <label for="material-content" class="form-label">Isi Konten Materi</label>
                     <div class="editor-toolbar">
                         <button type="button" onclick="formatDoc('bold')" title="Tebal"><i class="fas fa-bold"></i></button>
                         <button type="button" onclick="formatDoc('italic')" title="Miring"><i class="fas fa-italic"></i></button>
                         <button type="button" onclick="formatDoc('underline')" title="Garis Bawah"><i class="fas fa-underline"></i></button>
-                        <button type="button" onclick="formatList()" title="Daftar Poin"><i class="fas fa-list-ul"></i></button>
+                        <button type="button" onclick="formatDoc('insertUnorderedList')" title="Daftar Poin"><i class="fas fa-list-ul"></i></button>
                         <button type="button" onclick="formatDoc('insertOrderedList')" title="Daftar Bernomor"><i class="fas fa-list-ol"></i></button>
                     </div>
                     <div id="material-content" class="content-editable" contenteditable="true" placeholder="Tuliskan isi materi Anda di sini..."></div>
                 </div>
+                
                 <div class="form-group">
-                    <label for="material-image">Unggah Gambar</label>
-                    <input type="file" id="material-image" accept="image/*" class="form-control" style="padding: 10px;">
-                    <div id="image-preview" class="image-preview-container" style="display:none;">
-                        <img id="preview-image" src="" alt="Pratinjau Gambar" style="cursor: pointer;">
-                        <button type="button" class="btn btn-danger" id="delete-image-btn" style="margin-top: 10px;"><i class="fas fa-trash"></i> Hapus Gambar</button>
+                    <label for="material-image" class="form-label">Unggah Gambar (Opsional)</label>
+                    <input type="file" id="material-image" accept="image/*" class="form-control">
+                    <div id="image-preview" class="image-preview-container" style="display:none; margin-top: 1rem;">
+                        <img id="preview-image" src="" alt="Pratinjau Gambar" style="max-width: 100%; border-radius: 10px;">
+                        <button type="button" class="btn btn-danger" id="delete-image-btn" style="margin-top: 1rem;">
+                            <i class="fas fa-trash"></i> Hapus Gambar
+                        </button>
                     </div>
                 </div>
+                
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" id="save-button"><i class="fas fa-save"></i> Simpan Materi</button>
-                    <button type="button" class="btn btn-outline nav-link" data-page="materials" id="cancel-button" style="display:none;"><i class="fas fa-times"></i> Batal</button>
+                    <button type="submit" class="btn btn-primary" id="save-button">
+                        <i class="fas fa-save"></i> Simpan Materi
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-button" style="display:none;">
+                        <i class="fas fa-times"></i> Batal Edit
+                    </button>
+                    <a href="#" class="btn btn-secondary nav-link" data-page="home" id="back-button">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                    </a>
                 </div>
             </form>
         </section>
 
+        <!-- View Material Page -->
         <section id="view-material" class="page">
-            <div id="material-viewer" class="card"></div>
-            <div class="back-link">
-                <a href="#" class="btn btn-outline nav-link" data-page="materials"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Materi</a>
+            <div class="card">
+                <div class="material-view-header">
+                    <div class="material-view-title">
+                        <h2 id="view-material-title">Judul Materi</h2>
+                        <p id="view-material-date" class="material-date"></p>
+                    </div>
+                    <div class="material-view-actions">
+                        <button class="btn btn-edit" id="edit-material-btn">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-danger" id="delete-material-btn">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="view-material-image" style="margin-bottom: 2rem; text-align: center;"></div>
+                
+                <div id="view-material-content" class="material-view-content">
+                    <!-- Konten materi akan dimuat di sini -->
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="#" class="btn btn-secondary nav-link" data-page="home">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
             </div>
         </section>
     </main>
 
-    <div id="image-modal" class="modal">
-        <span class="close-modal">&times;</span>
-        <img class="modal-content" id="modal-image">
-    </div>
-
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Safety Zone. Dibuat dengan ❤️ oleh Jihan.</p>
+        <div class="container">
+            <p>&copy; 2025 Safety Zone. Dibuat dengan <i class="fas fa-heart" style="color: var(--accent);"></i> oleh Jihan.</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // Inisialisasi Supabase
         const SUPABASE_URL = "https://flccihxefysoqfmrnqgt.supabase.co";
         const SUPABASE_KEY = "sb_publishable_JL5K5fbvwtBckmto_Nu_-A_9Y-AQTsb";
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const MAX_FILE_SIZE = 10 * 1024 * 1024;
-        const iconList = ['✨', '💡', '📌', '🚀', '📚', '🎯'];
+        
+        // Variabel global
+        let currentMaterialId = null;
+        const DELETE_CODE = "1506";
+        let currentZoomLevel = 1;
 
+        // Fungsi untuk menampilkan notifikasi
         function showNotification(message, isError = false) {
             const container = document.getElementById('notification-container');
             const notification = document.createElement('div');
-            notification.className = `notification ${isError ? 'error' : ''}`;
-            notification.textContent = message;
+            notification.className = `notification ${isError ? 'error' : 'success'}`;
+            notification.innerHTML = `
+                <i class="fas fa-${isError ? 'exclamation-circle' : 'check-circle'}"></i>
+                <span>${message}</span>
+            `;
             container.appendChild(notification);
+            
+            // Hapus notifikasi setelah 3 detik
             setTimeout(() => {
                 notification.remove();
             }, 3000);
         }
 
+        // Fungsi untuk navigasi halaman
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.add('active');
+            
+            // Perbarui status aktif navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Muat data jika diperlukan
+            if (pageId === 'home' || pageId === 'materials') {
+                loadMaterials(pageId);
+            }
+        }
+
+        // Fungsi untuk memuat materi
+        async function loadMaterials(page) {
+            const { data: materials, error } = await supabase
+                .from("materials")
+                .select("*")
+                .order("created_at", { ascending: false });
+            
+            const listElement = document.getElementById(`materials-list-${page}`);
+            const noMaterialsMessage = document.getElementById(`no-materials-message-${page}`);
+            
+            // Kosongkan daftar materi
+            listElement.innerHTML = "";
+            
+            if (error) {
+                showNotification("Gagal memuat materi: " + error.message, true);
+                noMaterialsMessage.style.display = "block";
+                return;
+            }
+            
+            if (materials.length === 0) {
+                noMaterialsMessage.style.display = "block";
+            } else {
+                noMaterialsMessage.style.display = "none";
+                
+                materials.forEach(material => {
+                    const date = new Date(material.created_at).toLocaleDateString("id-ID", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    });
+                    
+                    const card = document.createElement("div");
+                    card.className = "material-card fade-in";
+                    card.innerHTML = `
+                        <div class="material-thumbnail">
+                            ${material.image ? 
+                                `<img src="${material.image}" alt="${material.title}" style="width: 100%; height: 100%; object-fit: cover;">` : 
+                                `<i class="fas fa-file-alt"></i>`
+                            }
+                        </div>
+                        <div class="material-info">
+                            <h3 class="material-title">${material.title}</h3>
+                            <small class="material-date"><i class="far fa-calendar"></i> ${date}</small>
+                            ${page === 'materials' ? `
+                                <div class="material-actions">
+                                    <button class="btn btn-edit" onclick="editMaterial(${material.id})">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger" onclick="openDeleteModal(${material.id})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    
+                    // Jika di halaman beranda, tambahkan event untuk melihat materi
+                    if (page === 'home') {
+                        card.addEventListener('click', () => {
+                            viewMaterial(material.id);
+                        });
+                    }
+                    
+                    listElement.appendChild(card);
+                });
+            }
+        }
+
+        // Fungsi untuk melihat materi
+        async function viewMaterial(id) {
+            try {
+                const { data: material, error } = await supabase
+                    .from("materials")
+                    .select("*")
+                    .eq("id", id)
+                    .single();
+                
+                if (error) throw error;
+                
+                // Simpan ID materi yang sedang dilihat
+                currentMaterialId = id;
+                
+                // Tampilkan data materi di halaman view
+                document.getElementById('view-material-title').textContent = material.title;
+                
+                const date = new Date(material.created_at).toLocaleDateString("id-ID", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                });
+                document.getElementById('view-material-date').innerHTML = `<i class="far fa-calendar"></i> Ditambahkan pada: ${date}`;
+                
+                // Tampilkan gambar jika ada
+                const imageContainer = document.getElementById('view-material-image');
+                if (material.image) {
+                    imageContainer.innerHTML = `
+                        <img src="${material.image}" alt="${material.title}" style="max-width: 100%; border-radius: 10px; cursor: zoom-in;">
+                    `;
+                    
+                    // Tambahkan event listener untuk zoom gambar
+                    const image = imageContainer.querySelector('img');
+                    image.addEventListener('click', () => {
+                        openImageZoomModal(material.image);
+                    });
+                } else {
+                    imageContainer.innerHTML = '';
+                }
+                
+                // Tampilkan konten materi
+                const contentContainer = document.getElementById('view-material-content');
+                contentContainer.innerHTML = material.content;
+                
+                // Tambahkan event listener untuk semua gambar di dalam konten
+                const contentImages = contentContainer.querySelectorAll('img');
+                contentImages.forEach(img => {
+                    img.style.cursor = 'zoom-in';
+                    img.addEventListener('click', () => {
+                        openImageZoomModal(img.src);
+                    });
+                });
+                
+                // Tampilkan halaman view material
+                showPage('view-material');
+                
+            } catch (error) {
+                showNotification("Gagal memuat materi: " + error.message, true);
+            }
+        }
+
+        // Fungsi untuk membuka modal zoom gambar
+        function openImageZoomModal(imageSrc) {
+            const modal = document.getElementById('image-zoom-modal');
+            const zoomedImage = document.getElementById('zoomed-image');
+            
+            // Set gambar yang akan di-zoom
+            zoomedImage.src = imageSrc;
+            currentZoomLevel = 1;
+            zoomedImage.style.transform = `scale(${currentZoomLevel})`;
+            
+            // Tampilkan modal
+            modal.classList.add('active');
+        }
+
+        // Fungsi untuk zoom in
+        function zoomIn() {
+            if (currentZoomLevel < 3) {
+                currentZoomLevel += 0.1;
+                document.getElementById('zoomed-image').style.transform = `scale(${currentZoomLevel})`;
+            }
+        }
+
+        // Fungsi untuk zoom out
+        function zoomOut() {
+            if (currentZoomLevel > 0.5) {
+                currentZoomLevel -= 0.1;
+                document.getElementById('zoomed-image').style.transform = `scale(${currentZoomLevel})`;
+            }
+        }
+
+        // Fungsi untuk reset zoom
+        function resetZoom() {
+            currentZoomLevel = 1;
+            document.getElementById('zoomed-image').style.transform = `scale(${currentZoomLevel})`;
+        }
+
+        // Fungsi untuk membuka modal hapus
+        function openDeleteModal(id) {
+            currentMaterialId = id;
+            const modal = document.getElementById('delete-modal');
+            const codeInputs = document.querySelectorAll('.code-input input');
+            const confirmButton = document.getElementById('confirm-delete');
+            const errorMessage = document.getElementById('code-error');
+            
+            // Reset modal
+            codeInputs.forEach(input => {
+                input.value = '';
+                input.style.borderColor = '';
+            });
+            confirmButton.disabled = true;
+            errorMessage.style.display = 'none';
+            
+            // Tampilkan modal
+            modal.classList.add('active');
+            
+            // Fokus ke input pertama
+            codeInputs[0].focus();
+            
+            // Event listener untuk input kode
+            codeInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    // Pindah ke input berikutnya jika diisi
+                    if (e.target.value.length === 1 && index < codeInputs.length - 1) {
+                        codeInputs[index + 1].focus();
+                    }
+                    
+                    // Validasi kode
+                    validateCode();
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    // Hapus karakter dan pindah ke input sebelumnya jika backspace ditekan
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        codeInputs[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        // Fungsi untuk validasi kode hapus
+        function validateCode() {
+            const codeInputs = document.querySelectorAll('.code-input input');
+            const confirmButton = document.getElementById('confirm-delete');
+            const errorMessage = document.getElementById('code-error');
+            
+            // Ambil nilai dari semua input
+            let enteredCode = '';
+            codeInputs.forEach(input => {
+                enteredCode += input.value;
+                input.style.borderColor = enteredCode.length <= DELETE_CODE.length ? 
+                    (enteredCode === DELETE_CODE.substring(0, enteredCode.length) ? 'var(--success)' : 'var(--error)') : 'var(--error)';
+            });
+            
+            // Periksa apakah kode sudah lengkap dan benar
+            if (enteredCode.length === DELETE_CODE.length) {
+                if (enteredCode === DELETE_CODE) {
+                    confirmButton.disabled = false;
+                    errorMessage.style.display = 'none';
+                } else {
+                    confirmButton.disabled = true;
+                    errorMessage.style.display = 'block';
+                    
+                    // Beri efek shake pada input yang salah
+                    codeInputs.forEach(input => {
+                        input.style.animation = 'shake 0.5s';
+                        setTimeout(() => {
+                            input.style.animation = '';
+                        }, 500);
+                    });
+                }
+            } else {
+                confirmButton.disabled = true;
+                errorMessage.style.display = 'none';
+            }
+        }
+
+        // Fungsi untuk menghapus materi
+        async function deleteMaterial() {
+            if (!currentMaterialId) return;
+            
+            try {
+                // Hapus gambar dari storage jika ada
+                const { data: material } = await supabase
+                    .from("materials")
+                    .select("image")
+                    .eq("id", currentMaterialId)
+                    .single();
+                
+                if (material && material.image) {
+                    const fileName = material.image.split('/').pop();
+                    await supabase.storage.from("materi").remove([fileName]);
+                }
+                
+                // Hapus materi dari database
+                const { error } = await supabase
+                    .from("materials")
+                    .delete()
+                    .eq("id", currentMaterialId);
+                
+                if (error) throw error;
+                
+                // Tutup modal dan perbarui daftar materi
+                document.getElementById('delete-modal').classList.remove('active');
+                showNotification("Materi berhasil dihapus!");
+                
+                // Kembali ke halaman sebelumnya
+                if (document.getElementById('view-material').classList.contains('active')) {
+                    showPage('home');
+                } else {
+                    loadMaterials('materials');
+                }
+                
+            } catch (error) {
+                showNotification("Gagal menghapus materi: " + error.message, true);
+            }
+        }
+
+        // Fungsi untuk mengedit materi - OPTIMIZED
+        async function editMaterial(id) {
+            try {
+                const { data: material, error } = await supabase
+                    .from("materials")
+                    .select("*")
+                    .eq("id", id)
+                    .single();
+                
+                if (error) throw error;
+                
+                // Isi form dengan data materi
+                document.getElementById('material-id').value = material.id;
+                document.getElementById('material-title').value = material.title;
+                document.getElementById('material-content').innerHTML = material.content;
+                document.getElementById('material-image-url').value = material.image || '';
+                
+                // Tampilkan preview gambar jika ada
+                const imagePreview = document.getElementById('image-preview');
+                const previewImage = document.getElementById('preview-image');
+                if (material.image) {
+                    previewImage.src = material.image;
+                    imagePreview.style.display = 'block';
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+                
+                // Ubah tampilan form untuk mode edit
+                document.getElementById('edit-indicator').style.display = 'inline-flex';
+                document.getElementById('form-title').innerHTML = '<i class="fas fa-edit"></i> Edit Materi: ' + material.title;
+                document.getElementById('save-button').innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui Materi';
+                document.getElementById('cancel-button').style.display = 'inline-block';
+                document.getElementById('back-button').style.display = 'none';
+                
+                // Tampilkan halaman tambah/edit materi
+                showPage('add-material');
+                
+                // Scroll ke atas form
+                document.getElementById('material-form').scrollIntoView({ behavior: 'smooth' });
+                
+                // Beri fokus pada judul
+                document.getElementById('material-title').focus();
+                
+            } catch (error) {
+                showNotification("Gagal memuat data materi: " + error.message, true);
+            }
+        }
+
+        // Fungsi untuk reset form
+        function resetForm() {
+            document.getElementById('material-form').reset();
+            document.getElementById('material-id').value = '';
+            document.getElementById('material-image-url').value = '';
+            document.getElementById('material-content').innerHTML = '';
+            document.getElementById('image-preview').style.display = 'none';
+            document.getElementById('preview-image').src = '';
+            document.getElementById('edit-indicator').style.display = 'none';
+            document.getElementById('form-title').innerHTML = '<i class="fas fa-plus-circle"></i> Tambah Materi Baru';
+            document.getElementById('save-button').innerHTML = '<i class="fas fa-save"></i> Simpan Materi';
+            document.getElementById('cancel-button').style.display = 'none';
+            document.getElementById('back-button').style.display = 'inline-block';
+        }
+
+        // Fungsi untuk format dokumen (editor)
         function formatDoc(command) {
             document.execCommand(command, false, null);
             document.getElementById('material-content').focus();
         }
 
-        function formatList() {
-            document.execCommand('insertUnorderedList', false, null);
-            const selection = window.getSelection();
-            if (selection.rangeCount > 0) {
-                const range = selection.getRangeAt(0);
-                const listNode = range.startContainer.parentElement.closest('ul');
-                if (listNode) {
-                    const listItems = listNode.querySelectorAll('li');
-                    listItems.forEach(li => {
-                        if (!li.dataset.icon) {
-                            li.dataset.icon = iconList[Math.floor(Math.random() * iconList.length)];
-                        }
-                    });
-                }
-            }
-            document.getElementById('material-content').focus();
-        }
-        
+        // Event listener ketika DOM sudah dimuat
         document.addEventListener('DOMContentLoaded', () => {
+            // Navigasi
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', e => {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const pageId = link.dataset.page;
+                    const pageId = link.getAttribute('data-page');
                     showPage(pageId);
-                    if (pageId === 'materials') loadMaterials();
-                    if (pageId === 'add-material') resetForm();
                     
-                    document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
-                    link.classList.add('active');
+                    // Reset form jika navigasi ke halaman add-material
+                    if (pageId === 'add-material') {
+                        resetForm();
+                    }
                 });
             });
-
-            document.getElementById('material-form').addEventListener('submit', handleForm);
-            document.getElementById('delete-image-btn').addEventListener('click', deleteImage);
-            document.getElementById('search-input').addEventListener('input', (e) => {
-                searchMaterials(e.target.value);
-            });
-            document.getElementById('image-modal').addEventListener('click', (e) => {
-                if (e.target.id === 'image-modal' || e.target.classList.contains('close-modal')) {
-                    document.getElementById('image-modal').style.display = 'none';
+            
+            // Form submit
+            document.getElementById('material-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const id = document.getElementById('material-id').value;
+                const title = document.getElementById('material-title').value;
+                const content = document.getElementById('material-content').innerHTML;
+                const fileInput = document.getElementById('material-image');
+                const file = fileInput.files[0];
+                const existingImageUrl = document.getElementById('material-image-url').value;
+                
+                if (!title.trim() || !content.trim()) {
+                    showNotification("Judul dan konten materi tidak boleh kosong", true);
+                    return;
+                }
+                
+                try {
+                    let imageUrl = existingImageUrl;
+                    
+                    // Upload gambar baru jika ada
+                    if (file) {
+                        if (file.size > MAX_FILE_SIZE) {
+                            showNotification("Ukuran file maksimal 10MB", true);
+                            return;
+                        }
+                        
+                        // Hapus gambar lama jika ada
+                        if (existingImageUrl) {
+                            const oldFileName = existingImageUrl.split('/').pop();
+                            await supabase.storage.from("materi").remove([oldFileName]);
+                        }
+                        
+                        // Upload gambar baru
+                        const fileName = `${Date.now()}-${file.name}`;
+                        const { error: uploadError } = await supabase.storage.from("materi").upload(fileName, file);
+                        
+                        if (uploadError) throw uploadError;
+                        
+                        imageUrl = `${SUPABASE_URL}/storage/v1/object/public/materi/${fileName}`;
+                    }
+                    
+                    // Simpan atau perbarui materi
+                    if (id) {
+                        // Update materi
+                        const { error } = await supabase
+                            .from("materials")
+                            .update({
+                                title,
+                                content,
+                                image: imageUrl,
+                                updated_at: new Date().toISOString()
+                            })
+                            .eq("id", id);
+                        
+                        if (error) throw error;
+                        showNotification("Materi berhasil diperbarui!");
+                    } else {
+                        // Buat materi baru
+                        const { error } = await supabase
+                            .from("materials")
+                            .insert([{ title, content, image: imageUrl }]);
+                        
+                        if (error) throw error;
+                        showNotification("Materi berhasil disimpan!");
+                    }
+                    
+                    // Reset form dan kembali ke beranda
+                    resetForm();
+                    showPage('home');
+                    
+                } catch (error) {
+                    showNotification("Gagal menyimpan materi: " + error.message, true);
                 }
             });
-
-            loadMaterials();
-            document.querySelector('.nav-link[data-page="home"]').classList.add('active');
-
-            // Dark Mode Toggle
-            const modeToggleBtn = document.getElementById('mode-toggle');
-            modeToggleBtn.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                const isDarkMode = document.body.classList.contains('dark-mode');
-                localStorage.setItem('darkMode', isDarkMode);
-                modeToggleBtn.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            
+            // Preview gambar
+            document.getElementById('material-image').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('preview-image').src = e.target.result;
+                        document.getElementById('image-preview').style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
-
-            // Set initial mode from localStorage
-            const savedMode = localStorage.getItem('darkMode');
-            if (savedMode === 'true') {
-                document.body.classList.add('dark-mode');
-                modeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            }
+            
+            // Hapus gambar
+            document.getElementById('delete-image-btn').addEventListener('click', function() {
+                document.getElementById('material-image').value = '';
+                document.getElementById('image-preview').style.display = 'none';
+                document.getElementById('material-image-url').value = '';
+            });
+            
+            // Tombol batal edit
+            document.getElementById('cancel-button').addEventListener('click', function() {
+                if (confirm("Batalkan edit? Perubahan yang belum disimpan akan hilang.")) {
+                    resetForm();
+                    showPage('materials');
+                }
+            });
+            
+            // Pencarian
+            document.getElementById('search-input-home').addEventListener('input', function(e) {
+                filterMaterials('home', e.target.value);
+            });
+            
+            document.getElementById('search-input-materials').addEventListener('input', function(e) {
+                filterMaterials('materials', e.target.value);
+            });
+            
+            // Modal hapus
+            document.getElementById('cancel-delete').addEventListener('click', function() {
+                document.getElementById('delete-modal').classList.remove('active');
+            });
+            
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('delete-modal').classList.remove('active');
+                    document.getElementById('image-zoom-modal').classList.remove('active');
+                });
+            });
+            
+            document.getElementById('confirm-delete').addEventListener('click', deleteMaterial);
+            
+            // Tutup modal ketika klik di luar
+            document.getElementById('delete-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+            
+            document.getElementById('image-zoom-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+            
+            // Kontrol zoom gambar
+            document.getElementById('zoom-in').addEventListener('click', zoomIn);
+            document.getElementById('zoom-out').addEventListener('click', zoomOut);
+            document.getElementById('zoom-reset').addEventListener('click', resetZoom);
+            
+            // Tombol edit dan hapus di halaman view material
+            document.getElementById('edit-material-btn').addEventListener('click', function() {
+                if (currentMaterialId) {
+                    editMaterial(currentMaterialId);
+                }
+            });
+            
+            document.getElementById('delete-material-btn').addEventListener('click', function() {
+                if (currentMaterialId) {
+                    openDeleteModal(currentMaterialId);
+                }
+            });
+            
+            // Muat data awal
+            loadMaterials('home');
         });
 
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-        }
-
-        async function loadMaterials() {
-            const { data: materials, error } = await supabase.from("materials").select("*").order("created_at", { ascending: false });
-            const listElement = document.getElementById("materials-list");
-            const noMaterialsMessage = document.getElementById("no-materials-message");
-            listElement.innerHTML = "";
-
-            if (error) {
-                showNotification("Gagal memuat materi: " + error.message, true);
-                noMaterialsMessage.style.display = "block";
-                noMaterialsMessage.textContent = "Gagal memuat materi. Silakan coba lagi nanti.";
-                return;
-            }
-
-            if (materials.length === 0) {
-                noMaterialsMessage.style.display = "block";
-                noMaterialsMessage.textContent = "Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!";
-            } else {
-                noMaterialsMessage.style.display = "none";
-                materials.forEach(m => {
-                    const date = new Date(m.created_at).toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" });
-                    const card = document.createElement("div");
-                    card.className = "material-card";
-                    card.innerHTML = `
-                        <div class="material-thumbnail">
-                            ${m.image ? `<img src="${m.image}" alt="${m.title}">` : `<i class="fas fa-file-alt" style="color: var(--secondary-color); opacity: 0.6;"></i>`}
-                        </div>
-                        <div class="material-info">
-                            <h3 class="material-title">${m.title}</h3>
-                            <small class="material-date">Ditambahkan pada: ${date}</small>
-                            <div class="material-actions">
-                                <button class="btn btn-edit" onclick="editMaterial(${m.id})"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-danger" onclick="deleteMaterial(${m.id})"><i class="fas fa-trash-alt"></i> Hapus</button>
-                            </div>
-                        </div>`;
-                    listElement.appendChild(card);
-                    // Add click event for the card itself to view material
-                    card.addEventListener('click', (e) => {
-                        // Check if the click target is NOT an action button
-                        if (!e.target.closest('.material-actions')) {
-                            viewMaterial(m.id);
-                        }
-                    });
-                });
-            }
-        }
-
-        async function handleForm(e) {
-            e.preventDefault();
-            const id = document.getElementById('material-id').value;
-            const title = document.getElementById('material-title').value;
-            const content = document.getElementById('material-content').innerHTML;
-            const file = document.getElementById('material-image').files[0];
-            const existingImageUrl = document.getElementById('material-image-url').value;
-
-            if (!title.trim() || !content.trim()) {
-                showNotification("Judul dan konten materi tidak boleh kosong.", true);
-                return;
-            }
+        // Fungsi untuk memfilter materi
+        function filterMaterials(page, query) {
+            const materials = document.querySelectorAll(`#materials-list-${page} .material-card`);
+            const lowerQuery = query.toLowerCase();
+            let hasResults = false;
             
-            if (id) {
-                await updateMaterial(id, title, content, file, existingImageUrl);
-            } else {
-                await saveMaterial(title, content, file);
-            }
-        }
-
-        async function saveMaterial(title, content, file) {
-            let imageUrl = null;
-            if (file) {
-                if (file.size > MAX_FILE_SIZE) { showNotification("Ukuran file maksimal 10MB!", true); return; }
-                const fileName = `${Date.now()}-${file.name}`;
-                const { error: uploadError } = await supabase.storage.from("materi").upload(fileName, file);
-                if (uploadError) { showNotification("Upload gambar gagal: " + uploadError.message, true); return; }
-                imageUrl = `${SUPABASE_URL}/storage/v1/object/public/materi/${fileName}`;
-            }
-            const { error } = await supabase.from("materials").insert([{ title, content, image: imageUrl }]);
-            if (error) { showNotification("Gagal menyimpan materi: " + error.message, true); return; }
-            showNotification("Materi berhasil disimpan!");
-            resetForm();
-            showPage("materials");
-            loadMaterials();
-        }
-
-        async function updateMaterial(id, title, content, file, existingImageUrl) {
-            let updateData = { title, content, updated_at: new Date().toISOString() };
-            let newImageUrl = existingImageUrl;
-            if (file) {
-                if (file.size > MAX_FILE_SIZE) { showNotification("Ukuran file maksimal 10MB!", true); return; }
-                if (existingImageUrl && existingImageUrl.includes(SUPABASE_URL)) {
-                    const oldFileName = existingImageUrl.split('/').pop();
-                    const { error: deleteOldError } = await supabase.storage.from("materi").remove([oldFileName]);
-                    if (deleteOldError) showNotification("Gagal menghapus gambar lama dari storage: " + deleteOldError.message, true);
-                }
-                const newFileName = `${Date.now()}-${file.name}`;
-                const { error: uploadError } = await supabase.storage.from("materi").upload(newFileName, file);
-                if (uploadError) { showNotification("Upload gambar baru gagal: " + uploadError.message, true); return; }
-                newImageUrl = `${SUPABASE_URL}/storage/v1/object/public/materi/${newFileName}`;
-            }
-            updateData.image = newImageUrl;
-            const { error } = await supabase.from("materials").update(updateData).eq("id", id);
-            if (error) { showNotification("Gagal memperbarui materi: " + error.message, true); return; }
-            showNotification("Materi berhasil diperbarui!");
-            resetForm();
-            showPage("materials");
-            loadMaterials();
-        }
-
-        async function deleteImage() {
-            const id = document.getElementById('material-id').value;
-            const imageUrl = document.getElementById('material-image-url').value;
-            if (!imageUrl) { showNotification("Tidak ada gambar untuk dihapus.", true); return; }
-            if (!confirm("Apakah Anda yakin ingin menghapus gambar ini?")) return;
-            const fileName = imageUrl.split('/').pop();
-            const { error: storageError } = await supabase.storage.from("materi").remove([fileName]);
-            if (storageError) { showNotification("Gagal menghapus gambar dari storage: " + storageError.message, true); return; }
-            const { error: dbError } = await supabase.from("materials").update({ image: null }).eq("id", id);
-            if (dbError) { showNotification("Gagal memperbarui database: " + dbError.message, true); return; }
-            showNotification("Gambar berhasil dihapus.");
-            document.getElementById('material-image-url').value = '';
-            document.getElementById('material-image').value = '';
-            document.getElementById('image-preview').style.display = 'none';
-        }
-
-        async function deleteMaterial(id) {
-            if (!confirm("Apakah Anda yakin ingin menghapus materi ini?")) return;
-            const { data, error: fetchError } = await supabase.from("materials").select("image").eq("id", id).single();
-            if (fetchError) { showNotification("Gagal mengambil data materi: " + fetchError.message, true); return; }
-            if (data && data.image) {
-                const fileName = data.image.split('/').pop();
-                const { error: storageError } = await supabase.storage.from("materi").remove([fileName]);
-                if (storageError) { showNotification("Gagal menghapus gambar dari storage: " + storageError.message, true); }
-            }
-            const { error: dbError } = await supabase.from("materials").delete().eq("id", id);
-            if (dbError) { showNotification("Gagal menghapus materi dari database: " + dbError.message, true); return; }
-            showNotification("Materi berhasil dihapus!");
-            loadMaterials();
-        }
-
-        function searchMaterials(query) {
-            const cards = document.querySelectorAll('.material-card');
-            const lowerCaseQuery = query.toLowerCase();
-            let found = false;
-            cards.forEach(card => {
-                const title = card.querySelector('.material-title').textContent.toLowerCase();
-                if (title.includes(lowerCaseQuery)) {
-                    card.style.display = 'flex';
-                    found = true;
+            materials.forEach(material => {
+                const title = material.querySelector('.material-title').textContent.toLowerCase();
+                if (title.includes(lowerQuery)) {
+                    material.style.display = 'flex';
+                    hasResults = true;
                 } else {
-                    card.style.display = 'none';
+                    material.style.display = 'none';
                 }
             });
-            const noMaterialsMessage = document.getElementById("no-materials-message");
-            if (!found) {
+            
+            // Tampilkan pesan jika tidak ada hasil
+            const noMaterialsMessage = document.getElementById(`no-materials-message-${page}`);
+            if (!hasResults && query) {
+                noMaterialsMessage.innerHTML = `
+                    <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                    Tidak ada materi yang cocok dengan "${query}"
+                `;
                 noMaterialsMessage.style.display = 'block';
-                noMaterialsMessage.textContent = query.trim() === '' ? 'Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!' : 'Tidak ada materi yang cocok dengan pencarian Anda.';
+            } else if (!hasResults) {
+                noMaterialsMessage.innerHTML = `
+                    <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                    Belum ada materi yang tersimpan. Ayo, tambahkan materi pertama Anda!
+                `;
+                noMaterialsMessage.style.display = materials.length === 0 ? 'block' : 'none';
             } else {
                 noMaterialsMessage.style.display = 'none';
             }
         }
 
-        function showImageModal(imageUrl) {
-            const modal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            modalImage.src = imageUrl;
-            modal.style.display = 'block';
-        }
-
-        function viewMaterial(id) {
-            supabase.from("materials").select("*").eq("id", id).single().then(({ data: m, error }) => {
-                if (error) {
-                    showNotification("Gagal memuat materi: " + error.message, true);
-                    return;
-                }
-                const viewer = document.getElementById("material-viewer");
-                const date = new Date(m.created_at).toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"});
-                
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = m.content;
-                const listItems = tempDiv.querySelectorAll('ul li');
-                listItems.forEach(li => {
-                    const icon = li.getAttribute('data-icon');
-                    if (icon) {
-                        li.innerHTML = `<span style="margin-right:0.5em;" class="list-icon">${icon}</span>` + li.innerHTML;
-                    }
-                });
-
-                const contentHTML = tempDiv.innerHTML;
-                viewer.innerHTML = `
-                    <h2>${m.title}</h2>
-                    <p class="material-date"><small>Ditambahkan pada: ${date}</small></p>
-                    <hr style="border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
-                    ${m.image ? `<img src="${m.image}" alt="${m.title}" style="max-width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;box-shadow:var(--shadow);border:1px solid var(--border-color);" class="zoomable-image">` : ""}
-                    <div id="material-content-viewer" style="line-height: 1.6; font-size: var(--font-size-body);">${contentHTML}</div>`;
-                
-                const images = viewer.querySelectorAll('img');
-                images.forEach(img => {
-                    img.style.cursor = 'pointer';
-                    img.addEventListener('click', () => showImageModal(img.src));
-                });
-
-                const listIconsInViewer = viewer.querySelectorAll('.list-icon');
-                if (document.body.classList.contains('dark-mode')) {
-                    listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--dark-primary-color)');
-                } else {
-                    listIconsInViewer.forEach(iconSpan => iconSpan.style.color = 'var(--primary-color)');
-                }
-
-                showPage("view-material");
-            });
-        }
-
-        async function editMaterial(id) {
-            const { data, error } = await supabase.from("materials").select("*").eq("id", id).single();
-            if (error) { showNotification("Gagal memuat data materi: " + error.message, true); return; }
-            document.getElementById("material-id").value = data.id;
-            document.getElementById("material-title").value = data.title;
-            document.getElementById("material-content").innerHTML = data.content;
-            document.getElementById("material-image-url").value = data.image || '';
-            const imagePreview = document.getElementById('image-preview');
-            const previewImage = document.getElementById('preview-image');
-            if (data.image) {
-                previewImage.src = data.image;
-                imagePreview.style.display = 'block';
-            } else {
-                imagePreview.style.display = 'none';
-                previewImage.src = '';
+        // Tambahkan style untuk efek shake
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
             }
-            document.getElementById("form-title").textContent = "Edit Materi";
-            document.getElementById("save-button").innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui Materi';
-            document.getElementById("cancel-button").style.display = "inline-block";
-            showPage("add-material");
-        }
-
-        function resetForm() {
-            document.getElementById("material-form").reset();
-            document.getElementById("material-id").value = "";
-            document.getElementById("material-image-url").value = "";
-            document.getElementById("material-content").innerHTML = "";
-            document.getElementById("form-title").textContent = "Tambah Materi Baru";
-            document.getElementById("save-button").innerHTML = '<i class="fas fa-save"></i> Simpan Materi';
-            document.getElementById("cancel-button").style.display = "none";
-            document.getElementById('image-preview').style.display = 'none';
-            document.getElementById('preview-image').src = '';
-            document.getElementById('material-image').value = '';
-        }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
